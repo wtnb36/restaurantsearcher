@@ -1,0 +1,8 @@
+<h1>会員一覧</h1>
+<% @customers.each do |customer| %>
+<div>
+  <P>ユーザー名 <%= link_to customer.nickname, customer_path(customer) %> </P>
+  <p>お気に入り数表示</p>
+  <p>ウィッシュリスト数表示</p>
+</div>
+<% end %>

@@ -1,0 +1,7 @@
+<h1>会員詳細</h1>
+<div>
+  <p>ユーザー名 <%= @customer.nickname %></p>
+  <p>お気に入り一覧</p>
+  <p>ウィッシュリスト一覧</p>
+  <%= link_to '編集する', edit_customer_path(current_customer) %>
+</div>

@@ -1,0 +1,9 @@
+<h1>店舗一覧</h1>
+<%= link_to "新規作成", new_restaurant_path %>
+<% @restaurants.each do |restaurant| %>
+<P>店名 <%= link_to restaurant.name, restaurant_path(restaurant.id) %></P>
+<P>住所 <%= restaurant.full_address %></P>
+<P>電話番号 <%= restaurant.phone_number %></P><%# 電話番号が見にくいので表示方法検討 %>
+<P>営業時間 <%= restaurant.business_hours %></P>
+<P>定休日 <%= restaurant.holiday %></P>
+<% end %>
