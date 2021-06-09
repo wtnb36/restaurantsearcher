@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :restaurants
+    resources :restaurants do
+      resources :reviews, only: [:index, :create]
+    end
   end
 
 end
