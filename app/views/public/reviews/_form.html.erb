@@ -1,0 +1,20 @@
+<%= form_with model: review, url: restaurant_reviews_path(restaurant), local: true do |f| %>
+<div class="star-form-group" id="star">               <%#id要素の付与がポイント%>
+  <%= f.label :score, "評価" %>　<%#保存したいカラムの指定%>
+  <%= f.hidden_field :score %>
+</div>
+<script>
+$('#star').raty({
+  size     : 38,                                    //星のサイズ
+  starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+  starOn : '<%= asset_path('star-on.png') %>',
+  starHalf: '<%= asset_path('star-half.png') %>',
+  scoreName: 'review[score]',     //reviewモデルのscoreカラムに保存
+  half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+});
+</script>
+<%= f.hidden_field :restaurant_id, value: restaurant.id %>
+<%= f.text_field :content %>
+<%= f.submit "保存" %>
+<%= link_to "他のレビューを見る", restaurant_reviews_path(restaurant) %>
+<% end %>

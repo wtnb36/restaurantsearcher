@@ -1,0 +1,6 @@
+<%= @restaurant.name %>
+<% @reviews.each do |review| %>
+<%= review.customer.nickname %>
+<%= review.score %>
+<%= review.content %>
+<% end %>

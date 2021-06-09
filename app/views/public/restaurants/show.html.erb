@@ -5,3 +5,5 @@
 <P>営業時間<%= @restaurant.business_hours %></P>
 <P>定休日日<%= @restaurant.holiday %></P>
 <%= link_to "店舗情報編集", edit_restaurant_path(@restaurant) %>
+
+<%= render 'public/reviews/form', review: @review, restaurant: @restaurant %>

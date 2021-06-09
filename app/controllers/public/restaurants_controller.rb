@@ -15,6 +15,8 @@ class Public::RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @review = Review.new
+    @customer = current_customer
   end
 
   def edit

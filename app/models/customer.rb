@@ -5,5 +5,7 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum sex: { 男: 0, 女: 1 }
+  
+  has_many :reviews, dependent: :destroy
 
 end
