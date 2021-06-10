@@ -1,0 +1,52 @@
+<h1>店舗情報編集</h1>
+<%= form_with model:@restaurant, local:true do |f| %>
+
+  <div class="field">
+    <%= f.label :name, "店名" %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postcode, "郵便番号(ハイフンなし)" %><br />
+    <%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prefecture_name, "都道府県" %><br />
+    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all,
+    :code, :name, { prompt: '選択してください' }, class: 'form-control'%>
+  </div>
+
+  <div class="field">
+    <%= f.label :address_city, "市区町村" %><br />
+    <%= f.text_field :address_city, autocomplete: "address_city", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address_street, "以降の住所" %><br />
+    <%= f.text_field :address_street, autocomplete: "address_street", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address_building, "建物名" %><br />
+    <%= f.text_field :address_building, autocomplete: "address_building", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number, "電話番号(ハイフンなし)" %><br />
+    <%= f.text_field :phone_number, autocomplete: "phone_number" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :business_hours, "営業時間" %><br />
+    <%= f.text_field :business_hours %>
+  </div>
+
+  <div class="field">
+    <%= f.label :holiday, "休業日" %><br />
+    <%= f.text_field :holiday %>
+  </div>
+
+  <%= f.submit "変更を保存する" %>
+
+<% end %>

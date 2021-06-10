@@ -1,0 +1,23 @@
+<h1>店舗一覧</h1>
+  <%= link_to "新規作成", new_restaurant_path %>
+  <% @restaurants.each do |restaurant| %>
+    <P>店名 <%= link_to restaurant.name, restaurant_path(restaurant.id) %></P>
+    <P>住所 <%= restaurant.full_address %></P>
+    <P>電話番号 <%= restaurant.phone_number %></P><%# 電話番号が見にくいので表示方法検討 %>
+    <P>営業時間 <%= restaurant.business_hours %></P>
+    <P>定休日 <%= restaurant.holiday %></P>
+    <div class="card-content">
+      <div class="content average-score">
+        <div class="star-rating mb-2">
+          <div class="star-rating-front" style="width: <%= restaurant.review_score_pct %>%">★★★★★</div>
+          <div class="star-rating-back">★★★★★</div>
+        </div>
+        <div class="average-score-display ml-3 pt-2">
+          <%= restaurant.review_score_ave %>点（<%= restaurant.reviews.count %>件のレビュー）
+        </div>
+      </div>
+    </div>
+    <%= link_to restaurant_reviews_path(restaurant) do %>
+      レビューを見る
+    <% end %>
+  <% end %>
