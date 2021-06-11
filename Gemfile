@@ -69,7 +69,7 @@ gem 'kaminari'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'bootstrap', '~> 4.1.1'
-gem 'pry-byebug'
+gem 'pry-byebug' #:デプロイ時development,:test doへ移動
 gem 'font-awesome-sass'
 
 gem 'dotenv-rails'
