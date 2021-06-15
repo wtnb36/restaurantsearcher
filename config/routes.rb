@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :restaurants do
       resources :reviews, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
+      resource :wishes, only: [:create, :destroy]
     end
     resources :histories
   end

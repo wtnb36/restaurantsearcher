@@ -11,6 +11,7 @@
             <%#<th scope="col">営業時間</th>%>
             <%#<th scope="col">定休日</th>%>
             <th scope="col">お気に入り</th>
+            <th scope="col">行ってみたい</th>
             <th scope="col">評価</th>
           </tr>
         </thead>
@@ -31,6 +32,17 @@
                 <%= link_to restaurant_favorites_path(restaurant), method: :post do %>
                   <i class="far fa-star"></i><%= restaurant.favorites.count %>
                 <% end %>
+            <% end %>
+            </td>
+            <td>
+            <% if restaurant.wished_by?(current_customer) %>
+              <%= link_to restaurant_wishes_path(restaurant), method: :delete do %>
+                <i class="far fa-check-square"></i></i><%= restaurant.wishes.count %>
+              <% end %>
+            <% else %>
+              <%= link_to restaurant_wishes_path(restaurant), method: :post do %>
+                <i class="far fa-square"></i><%= restaurant.wishes.count %>
+              <% end %>
             <% end %>
             </td>
             <td>
