@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <h1>店舗詳細</h1>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr><th class="col col-3">店名</th><td><%= @restaurant.name %></td></tr>
+        <tr><th class="col col-3">住所</th><td><%= @restaurant.full_address %></td></tr>
+        <tr><th class="col col-3">電話番号</th><td><%= @restaurant.phone_number %></td></tr>
+        <tr>
+          <th class="col col-3">ステータス</th>
+          <% if @restaurant.is_deleted == true %>
+            <td>無効</td>
+          <% else %>
+            <td>有効</td>
+          <% end %>
+        </tr>
+        <% if @restaurant.is_deleted == true %>
+          <tr>
+            <th class="col col-3">店舗ステータスを有効化する</th>
+              <td>
+                <%= link_to admin_restaurant_path(@restaurant), method: :patch do %>
+                <button type="button" class="btn btn-primary">有効化</button>
+                <% end %>
+              </td>
+          </tr>
+        <% end %>
+        <tr>
+          <th class="col col-3">店舗削除</th>
+            <td>
+              <%= link_to admin_restaurant_path(@restaurant), method: :delete do %>
+              <button type="button" class="btn btn-danger">削除</button>
+              <% end %>
+              （データベース上から削除されるので注意!!）
+            </td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

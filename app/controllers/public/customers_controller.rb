@@ -5,10 +5,13 @@ class Public::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
+    @favorite_restaurants = @customer.favorite_restaurants
+    #お気に入りの中からランダムで1件表示 mySQLではRANDへ変更
+    #@random = @customer.favorite_restaurants.order("RANDOM()").limit(1)
   end
 
   def edit
-    @customer = current_customer
+    @customer = Customer.find(params[:id])
   end
 
   def update
@@ -17,12 +20,29 @@ class Public::CustomersController < ApplicationController
     redirect_to customer_path(current_customer)
   end
 
+  def favorites
+    @customer = Customer.find(params[:id])
+    @favorite_restaurants = @customer.favorite_restaurants
+  end
+
+  def unsubscribe
+    @customer = current_customer
+  end
+
+  def withdrawal
+    @customer = current_customer
+    @customer.update(is_deleted: true)
+    reset_session
+    redirect_to root_path
+  end
+
   private
 
   def customer_params
     params.require(:customer).permit(
       :last_name, :first_name, :last_name_kana, :first_name_kana,
       :nickname, :sex, :birth_date, :postcode, :prefecture_code,
-      :address_city, :address_street, :address_building,:phone_number, :email)
+      :address_city, :address_street, :address_building,:phone_number,
+      :email, :is_deleted)
   end
 end
