@@ -25,6 +25,22 @@
               <% end %>
             </td>
           </tr>
+          <tr>
+            <th scope="col">行ってみたい</th>
+            <td>
+              <% if @restaurant.wished_by?(current_customer) %>
+              　<%= link_to restaurant_wishes_path(@restaurant), method: :delete do %>
+                  <i class="far fa-check-square"></i><%= @restaurant.wishes.count %>
+                <% end %>
+                登録解除
+              <% else %>
+                <%= link_to restaurant_wishes_path(@restaurant), method: :post do %>
+                  <i class="fas fa-check-square"></i><%= @restaurant.wishes.count %>
+                <% end %>
+                登録する
+              <% end %>
+            </td>
+          </tr>
           <tr><th scope="col"></th><td><%= link_to "店舗情報編集", edit_restaurant_path(@restaurant) %></td></tr>
           <tr>
             <th scope="col">

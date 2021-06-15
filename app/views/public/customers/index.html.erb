@@ -7,6 +7,7 @@
           <tr>
             <th scope="col">ユーザー名</th>
             <th scope="col">お気に入り数  <i class="fas fa-star"></i></th>
+            <th scope="col">行きたいお店の数  <i class="fa fa-check-square"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -14,6 +15,7 @@
           <tr>
             <td><%= link_to customer.nickname, customer_path(customer) %> </td>
             <td><%= customer.favorites.count %></td>
+            <td><%= customer.wishes.count %></td>
           </tr>  
           <% end %>
         </tbody>

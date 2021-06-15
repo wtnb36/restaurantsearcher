@@ -6,13 +6,15 @@ class Customer < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :wishes, dependent: :destroy
   has_many :favorite_restaurants, through: :favorites, source: :restaurant
+  has_many :wish_restaurants, through: :wishes, source: :restaurant
   has_many :histories, dependent: :destroy
-  
+
   enum sex: { 男: 0, 女: 1 }
-  
+
   def full_address
     "〒" + postcode.to_s + " " + prefecture_name + address_city + address_street + address_building
   end
-  
+
 end

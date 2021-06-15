@@ -1,6 +1,7 @@
 class Restaurant < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :wishes, dependent: :destroy
   has_many :histories, dependent: :destroy
 
   def full_address
@@ -27,5 +28,9 @@ class Restaurant < ApplicationRecord
 
   def favorited_by?(customer)
     favorites.where(customer_id: customer.id).exists?
+  end
+  
+  def wished_by?(customer)
+    wishes.where(customer_id: customer.id).exists?
   end
 end

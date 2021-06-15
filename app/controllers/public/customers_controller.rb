@@ -6,6 +6,7 @@ class Public::CustomersController < ApplicationController
   def show
     @customer = Customer.find(params[:id])
     @favorite_restaurants = @customer.favorite_restaurants
+    @wish_restaurants = @customer.wish_restaurants
     #お気に入りの中からランダムで1件表示 mySQLではRANDへ変更
     #@random = @customer.favorite_restaurants.order("RANDOM()").limit(1)
   end
@@ -23,6 +24,11 @@ class Public::CustomersController < ApplicationController
   def favorites
     @customer = Customer.find(params[:id])
     @favorite_restaurants = @customer.favorite_restaurants
+  end
+
+  def wishes
+    @customer = Customer.find(params[:id])
+    @wish_restaurants = @customer.wish_restaurants
   end
 
   def unsubscribe
