@@ -1,14 +1,14 @@
 <% if admin_signed_in? %>
-  <%= link_to '会員一覧', "#" %>
-  <%= link_to '店舗一覧', "#" %>
+  <%= link_to '会員一覧', admin_customers_path %>
+  <%= link_to '店舗一覧', admin_restaurants_path %>
   <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
 
 <% elsif customer_signed_in? %>
   <%= link_to 'マイページ', customer_path(current_customer) %>
   <%= link_to '会員一覧', customers_path %>
   <%= link_to '店舗一覧', restaurants_path %>
-  <%= link_to 'お気に入り一覧', "#" %>
-  <%= link_to 'ウィッシュリスト', "#" %>
+  <%#= link_to 'お気に入り一覧', customer_favorites_path(customer) %>
+  <%#= link_to 'ウィッシュリスト', "#" %>
   <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
 
 <% else %>

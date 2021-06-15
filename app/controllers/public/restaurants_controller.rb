@@ -11,12 +11,13 @@ class Public::RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+    @customer = current_customer
   end
 
   def show
     @restaurant = Restaurant.find(params[:id])
     @review = Review.new
-    @customer = current_customer
+    @history = History.new
   end
 
   def edit
@@ -28,6 +29,8 @@ class Public::RestaurantsController < ApplicationController
     @restaurant.update(restaurant_params)
     redirect_to restaurant_path(@restaurant)
   end
+  
+  private
 
   def restaurant_params
     params.require(:restaurant).permit(
@@ -35,4 +38,9 @@ class Public::RestaurantsController < ApplicationController
       :address_street, :address_building,:phone_number,
       :business_hours, :holiday)
   end
+  
+  def history_params
+    params.require(:history).permit(:restaurant_id, :date)
+  end
+  
 end

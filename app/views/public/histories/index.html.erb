@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">行く日</th>
+          <th scope="col">店名</th>
+          <th scope="col">a</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @histories.each do |history| %>
+        <tr>
+          <td><%= history.date %></td>
+          <td><%= history.restaurant.name %></td>
+          <td><%= link_to "削除", history_path(history), method: :delete %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+

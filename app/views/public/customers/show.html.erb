@@ -1,7 +1,41 @@
 <h1>会員詳細</h1>
 <div>
-  <p>ユーザー名 <%= @customer.nickname %></p>
-  <p>お気に入り一覧</p>
+  <h5>ユーザー名 <%= @customer.nickname %></h5>
+  <h5>お気に入り一覧</h5>
+  <% @favorite_restaurants.each do |favorite_restaurant| %>
+  <%= link_to favorite_restaurant.name, restaurant_path(favorite_restaurant.id) %>
+  <%= favorite_restaurant.full_address %>
+  <%= favorite_restaurant.phone_number %>
+    <div class="card-content">
+      <div class="content average-score">
+        <div class="star-rating mb-2">
+          <div class="star-rating-front" style="width: <%= favorite_restaurant.review_score_pct %>%">★★★★★</div>
+          <div class="star-rating-back">★★★★★</div>
+        </div>
+        <div class="average-score-display ml-3 pt-2">
+          <%= favorite_restaurant.review_score_ave %>点（<%= favorite_restaurant.reviews.count %>件のレビュー）
+        </div>
+      </div>
+    </div>
+  <% if favorite_restaurant.favorited_by?(current_customer) %>
+    <p>
+      <%= link_to restaurant_favorites_path(favorite_restaurant.id), method: :delete do %>
+      ♥<%= favorite_restaurant.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to restaurant_favorites_path(favorite_restaurant.id), method: :post do %>
+      ♡<%= favorite_restaurant.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% end %>
+  <% end %>
+  <%# ランダム表示用 表示方法検討中　%>
+  <%# @random.each do |restaurant| %>
+  <%#= restaurant.name %>
+
   <p>ウィッシュリスト一覧</p>
   <%= link_to '編集する', edit_customer_path(current_customer) %>
+  <%= link_to '履歴一覧', histories_path %>
 </div>
