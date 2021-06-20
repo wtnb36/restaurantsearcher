@@ -8,11 +8,14 @@ class Public::CustomersController < ApplicationController
     @favorite_restaurants = @customer.favorite_restaurants
     @wish_restaurants = @customer.wish_restaurants
     #お気に入りの中からランダムで1件表示 mySQLではRANDへ変更
-    #@random = @customer.favorite_restaurants.order("RANDOM()").limit(1)
+    @random_favorite = @customer.favorite_restaurants.order("RANDOM()").limit(1)
+    @random_wish = @customer.wish_restaurants.order("RANDOM()").limit(1)
+    #@random_favorite = @customer.favorite_restaurants.order("RAND()").limit(1)
+    #@random_wish = @customer.wish_restaurants.order("RAND()").limit(1)
   end
 
   def edit
-    @customer = Customer.find(params[:id])
+    @customer = current_customer
   end
 
   def update
@@ -40,6 +43,10 @@ class Public::CustomersController < ApplicationController
     @customer.update(is_deleted: true)
     reset_session
     redirect_to root_path
+  end
+
+  def favorites_random
+    @random = @customer.favorite_restaurants.order("RANDOM()").limit(1)
   end
 
   private

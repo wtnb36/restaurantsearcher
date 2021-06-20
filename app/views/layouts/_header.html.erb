@@ -1,17 +1,23 @@
-<ul class="nav justify-content-start">
-  <% if admin_signed_in? %>
-    <li class="nav-item"><%= link_to '会員一覧', admin_customers_path %></li>
-    <li class="nav-item"> <%= link_to '店舗一覧', admin_restaurants_path %></li>
-    <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
-  <% elsif customer_signed_in? %>
-    <li class="nav-item"><%= link_to 'マイページ', customer_path(current_customer) %></li>
-    <li class="nav-item"><%= link_to '会員一覧', customers_path %></li>
-    <li class="nav-item"><%= link_to '店舗一覧', restaurants_path %></li>
-    <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
-  <% else %>
-    <li class="nav-item"><%= link_to 'home', root_path %></li>
-    <li class="nav-item"><%= link_to 'about', about_path %></li>
-    <li class="nav-item"><%= link_to '新規登録', new_customer_registration_path %></li>
-    <li class="nav-item"><%= link_to 'ログイン',  new_customer_session_path %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="p-3 mb-2 bg-dark text-white">
+      <ul class="nav justify-content-end">
+        <% if admin_signed_in? %>
+          <li class="nav-item"><%= link_to '会員一覧', admin_customers_path %></li>
+          <li class="nav-item"> <%= link_to '店舗一覧', admin_restaurants_path %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+        <% elsif customer_signed_in? %>
+          <li class="nav-item"><%= link_to 'マイページ', customer_path(current_customer), data: {"turbolinks"=>false} %></li>
+          <li class="nav-item"><%= link_to '会員一覧', customers_path %></li>
+          <li class="nav-item"><%= link_to '店舗一覧', restaurants_path %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to 'Home', root_path %></li>
+          <li class="nav-item"><%= link_to 'About', about_path %></li>
+          <li class="nav-item"><%= link_to '新規登録', new_customer_registration_path, data: {"turbolinks"=>false} %></li>
+          <li class="nav-item"><%= link_to 'ログイン',  new_customer_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

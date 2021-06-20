@@ -16,6 +16,12 @@
         </tr>
         <% if @restaurant.is_deleted == true %>
           <tr>
+            <th>削除理由</th>
+            <td><%= @restaurant.reason %></td>
+          </tr>
+        <% end %>
+        <% if @restaurant.is_deleted == true %>
+          <tr>
             <th class="col col-3">店舗ステータスを有効化する</th>
               <td>
                 <%= link_to admin_restaurant_path(@restaurant), method: :patch do %>

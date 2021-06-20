@@ -1,14 +1,23 @@
 <h1>店舗情報詳細</h1>
 <div class="container">
   <div class="row">
-    <div class="col col-sm-8">
+    <div class="col col-sm-6">
       <table class="table">
         <thead class="thead-dark">
-          <tr><th scope="col">店名</th><td><%= @restaurant.name %></td></tr>
+          <tr>
+            <th scope="col">店名</th>
+            <td><%= @restaurant.name %>
+              <% if @restaurant.is_deleted == true %>
+                <i class="far fa-window-close"> 現在営業しておりません</i>
+                <%= @restaurant.reason %></td>
+              <% end %>
+          </tr>
           <tr><th scope="col">住所</th><td><%= @restaurant.full_address %></td></tr>
           <tr><th scope="col">電話番号</th><td><%= @restaurant.phone_number %></td></tr><%# 電話番号が見にくいので表示方法検討 %>
           <tr><th scope="col">営業時間</th><td><%= @restaurant.business_hours %></td></tr>
           <tr><th scope="col">定休日</th><td><%= @restaurant.holiday %></td></tr>
+          <tr><th scope="col">喫煙・禁煙</th><td><%= @restaurant.tobacco %></td></tr>
+          <tr><th scope="col">紹介文</th><td><%= @restaurant.introduction %></td></tr>
           <tr>
             <th scope="col">お気に入り</th>
             <td>
@@ -35,33 +44,63 @@
                 登録解除
               <% else %>
                 <%= link_to restaurant_wishes_path(@restaurant), method: :post do %>
-                  <i class="fas fa-check-square"></i><%= @restaurant.wishes.count %>
+                  <i class="far fa-square"></i><%= @restaurant.wishes.count %>
                 <% end %>
                 登録する
               <% end %>
             </td>
           </tr>
-          <tr><th scope="col"></th><td><%= link_to "店舗情報編集", edit_restaurant_path(@restaurant) %></td></tr>
           <tr>
-            <th scope="col">
-              <td>
-                <%= form_with model: @history, local: true do |f| %>
-                <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
-                <%= f.label :date, "日付" %>
-                <%= f.date_select(
-                :date,
-                use_month_numbers: true,
-                start_year: (Time.now.year),
-                end_year: (Time.now.year+1),
-                date_separator: " / ") %>  に
-                <%= f.submit "ここに行く", class: "btn btn-primary" %>
-                <% end %>
-              </td>
-            </th>
+            <th>評価</th>
+            <td>
+              <div class="card-content">
+                <div class="content average-score">
+                  <div class="star-rating mb-2">
+                    <div class="star-rating-front" style="width: <%= @restaurant.review_score_pct %>%">★★★★★</div>
+                    <div class="star-rating-back">★★★★★</div>
+                  </div>
+                  <div class="average-score-display ml-3 pt-2">
+                    <%= @restaurant.review_score_ave %>点（<%= @restaurant.reviews.count %>件のレビュー）
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="col"></th>
+            <td>
+              <%= link_to "店舗情報編集", edit_restaurant_path(@restaurant),
+                  class: "btn btn-primary", data: {"turbolinks"=>false} %>
+              <% if @restaurant.is_deleted == false %>
+              <%= link_to "削除依頼", restaurant_deletion_request_path(@restaurant), class: "btn btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="col"></th>
+            <td>
+              <%= form_with model: @history, local: true do |f| %>
+              <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
+              <%= f.label :date, "日付" %>
+              <%= f.date_select(
+              :date,
+              use_month_numbers: true,
+              start_year: (Time.now.year),
+              end_year: (Time.now.year+1),
+              date_separator: " / ") %>  に
+              <%= f.submit "ここに行く", class: "btn btn-success" %>
+              <% end %>
+            </td>
           </tr>
         </thead>
       </table>
     </div>
-  <%= render 'public/reviews/form', review: @review, restaurant: @restaurant %>
+    <div class="col-sm-3">
+      <%= attachment_image_tag @restaurant, :image, format: 'jpeg', size: "200x200" %>
+    </div>
+    <%= render 'public/reviews/form', review: @review, restaurant: @restaurant, my_review: @my_review %>
+  </div>
+  <div class="row">
+
   </div>
 </div>

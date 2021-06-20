@@ -7,10 +7,8 @@ class Admin::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
   end
 
-  def edit
-    @customer = current_customer
-  end
-
+  #admin側のupdateはアカウントの復旧用のみ
+  #もし会員情報も編集したければアクションを追加
   def update
     @customer = Customer.find(params[:id])
     @customer.update(is_deleted: false)

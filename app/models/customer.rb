@@ -11,7 +11,7 @@ class Customer < ApplicationRecord
   has_many :wish_restaurants, through: :wishes, source: :restaurant
   has_many :histories, dependent: :destroy
 
-  enum sex: { 男: 0, 女: 1 }
+  enum sex: { 男性: 0, 女性: 1 }
 
   def full_address
     "〒" + postcode.to_s + " " + prefecture_name + address_city + address_street + address_building
