@@ -1,47 +1,48 @@
-<div class="col col-sm-4">  
-  <div class="card-content">
-    <div class="content average-score">
-      <div class="star-rating mb-2">
-        <div class="star-rating-front" style="width: <%= restaurant.review_score_pct %>%">★★★★★</div>
-        <div class="star-rating-back">★★★★★</div>
-      </div>
-      <div class="average-score-display ml-3 pt-2">
-        <%= restaurant.review_score_ave %>点（<%= restaurant.reviews.count %>件のレビュー）
-      </div>
-    </div>
+<div class="col col-sm-3">
+  <h3>マイレビュー</h3>
+  <% if my_review == [] %>
+    <p>レビューはありません</p>
+  <% else %>
+  <% my_review.each do |review| %>
+  <%= review.created_at.strftime('%Y/%m/%d') %>
+  <%= review.customer.nickname + "さん" %>
+  <%= review.score %></br>
+  <%= review.content %>
+  <div>
+    <%= link_to "削除", restaurant_review_path(review.restaurant.id, review.id), method: :delete %>
   </div>
-  
-  <% restaurant.reviews.each do |review| %>
-    <%= review.created_at.strftime('%Y/%m/%d') %>
-    <%= review.customer.nickname %>
-    <%= review.score %></br>
-    <%= review.content %>
-    <% if review.customer == current_customer %>
-      <div>
-        <%#= link_to "編集", edit_restaurant_review_path(review.restaurant.id, review.id) %>
-      </div>
-      <div>
-        <%= link_to "削除", restaurant_review_path(review.restaurant.id, review.id), method: :delete %>
-      </div>
-    <% end %>
   <% end %>
+  <% end %>
+
   <%= form_with model: review, url: restaurant_reviews_path(restaurant), local: true do |f| %>
-  <div class="star-form-group" id="star">               <%#id要素の付与がポイント%>
-    <%= f.label :score, "評価" %>　<%#保存したいカラムの指定%>
-    <%= f.hidden_field :score %>
-  </div>
-  <script>
-  $('#star').raty({
-    size     : 38,                                    //星のサイズ
-    starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
-    starOn : '<%= asset_path('star-on.png') %>',
-    starHalf: '<%= asset_path('star-half.png') %>',
-    scoreName: 'review[score]',     //reviewモデルのscoreカラムに保存
-    half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
-  });
-  </script>
-  <%= f.hidden_field :restaurant_id, value: restaurant.id %>
-  <%= f.text_field :content %>
-  <%= f.submit "保存" %>
+    <div class="star-form-group" id="star">               <%#id要素の付与がポイント%>
+      <%= f.label :score, "評価" %>　<%#保存したいカラムの指定%>
+      <%= f.hidden_field :score %>
+    </div>
+    <script>
+    $('#star').raty({
+      size     : 38,                                    //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'review[score]',     //reviewモデルのscoreカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    </script>
+    <%= f.hidden_field :restaurant_id, value: restaurant.id %>
+    <%= f.text_field :content %>
+    <%= f.submit "保存" %>
+  <% end %>
+
+  <h3>レビュー一覧</h3>
+  <% if restaurant.reviews == [] %>
+    <p>レビューはありません</p>
+  <% else %>
+    <% restaurant.reviews.each do |review| %>
+      <%= review.created_at.strftime('%Y/%m/%d') %>
+      <%= review.customer.nickname + "さん" %>
+      <%= review.score %></br>
+      <%= review.content %>
+    <% end %>
   <% end %>
 </div>

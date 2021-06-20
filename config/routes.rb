@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   #end
 
   namespace :admin do
-    resources :customers, only: [:index, :show, :destroy, :update]
-    resources :restaurants
+    resources :customers, only: [:index, :show, :update, :destroy]
+    resources :restaurants, only: [:index, :show, :update, :destroy]
   end
 
 
@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     patch 'customers/withdrawal', to: 'customers#withdrawal', as: 'withdrawal'
     resources :customers, only: [:index, :show, :edit, :update]
     resources :restaurants do
+      get 'deletion_request', to: 'restaurants#deletion_request', as: 'deletion_request'
+      patch 'deletion', to: 'restaurants#deletion', as: 'deletion'
       resources :reviews, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
       resource :wishes, only: [:create, :destroy]

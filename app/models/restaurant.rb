@@ -29,8 +29,13 @@ class Restaurant < ApplicationRecord
   def favorited_by?(customer)
     favorites.where(customer_id: customer.id).exists?
   end
-  
+
   def wished_by?(customer)
     wishes.where(customer_id: customer.id).exists?
   end
+
+  enum tobacco: { 喫煙可: 0, 禁煙: 1, 不明: 2 }
+
+  attachment :image
+
 end
