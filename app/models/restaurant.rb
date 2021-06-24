@@ -7,8 +7,8 @@ class Restaurant < ApplicationRecord
   validates :name, :postcode, :prefecture_code, :address_city,
             :address_building, :phone_number, presence:true
 
-  # 店名、郵便番号、市区町村以降の住所,電話番号が同一のものは作れない
-  validates :name, uniqueness: { scope: [:postcode, :address_street, :phone_number] }
+  # 店名、市区町村以降の住所,電話番号が同一のものは作れない
+  validates :name, uniqueness: { scope: [:address_street, :phone_number] }
 
   def full_address
     "〒" + postcode.to_s + " " + prefecture_name + address_city + address_street + address_building
