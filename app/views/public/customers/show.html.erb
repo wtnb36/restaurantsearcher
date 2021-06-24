@@ -5,10 +5,13 @@
       <thead class="thead-dark">
         <tr>
           <th>ユーザー名</th>
-          <td><%= @customer.nickname %>
+          <td>
             <% if @customer == current_customer %>
+              <%= @customer.nickname %>
               <%= link_to '編集する', edit_customer_path(current_customer), class: "btn btn-primary", data: {"turbolinks"=>false} %>
               <%= link_to '履歴一覧', histories_path, class: "btn btn-success" %>
+            <% else %>
+              <%= @customer.nickname + "さん" %>
             <% end %>
           </td>
         </tr>
@@ -43,7 +46,7 @@
         <thead class="thead-dark">
           <tr><th>お気に入り一覧 (お気に入り登録件数 <%= @customer.favorites.count %> 件)</th></tr>
         </thead>
-        <tbody>
+        <tbody class="favorite_index">
           <% @favorite_restaurants.each do |favorite_restaurant| %>
           <tr>
             <td>
@@ -89,6 +92,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate(@favorite_restaurants, param_name: "favorite_page") %>
     </div>
    <div class="col-sm-6">
     <table class="table">
@@ -97,7 +101,7 @@
           <th>行きたいお店一覧 (行きたいお店登録件数 <%= @customer.wishes.count %> 件)</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="wish_index">
         <% @wish_restaurants.each do |wish_restaurant| %>
         <tr>
           <td>
@@ -143,14 +147,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate(@wish_restaurants, param_name: "wish_page") %>
   </div>
 </div>
 
-
-
-
-
-
-
-
-</div>

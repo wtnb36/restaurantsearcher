@@ -5,12 +5,15 @@ class Public::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.save
-    redirect_to restaurants_path
+    if @restaurant.save
+      redirect_to restaurants_path
+    else
+      render :new
+    end
   end
 
   def index
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant.all.page(params[:page]).per(10)
     @customer = current_customer
   end
 
@@ -18,7 +21,8 @@ class Public::RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     @review = Review.new
     @history = History.new
-    @my_review = Review.where(customer_id: current_customer.id)
+    @my_review = Review.where(customer_id: current_customer.id, restaurant_id: @restaurant)
+    @review_index = Review.where(restaurant_id: @restaurant).page(params[:page]).per(5)
   end
 
   def edit

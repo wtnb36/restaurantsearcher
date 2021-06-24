@@ -1,17 +1,14 @@
 class Public::ReviewsController < ApplicationController
   def create
+    @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new(review_params)
     @review.customer_id = current_customer.id
     if @review.save
-      redirect_to request.referer
+      redirect_to restaurant_path(@restaurant)
     else
-      @restaurant = Restaurant.find(params[:restaurant_id])
+      @my_review = Review.where(customer_id: current_customer.id, restaurant_id: @restaurant)
       render "public/restaurants/show"
     end
-  end
-
-  def edit
-    @review = Review.find(params[:id])
   end
 
   def destroy
