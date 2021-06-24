@@ -1,17 +1,17 @@
 class Public::CustomersController < ApplicationController
   def index
-    @customers = Customer.all
+    @customers = Customer.all.page(params[:page]).per(10)
   end
 
   def show
     @customer = Customer.find(params[:id])
-    @favorite_restaurants = @customer.favorite_restaurants
-    @wish_restaurants = @customer.wish_restaurants
+    @favorite_restaurants = @customer.favorite_restaurants.page(params[:favorite_page]).per(1)
+    @wish_restaurants = @customer.wish_restaurants.page(params[:wish_page]).per(1)
     #お気に入りの中からランダムで1件表示 mySQLではRANDへ変更
-    @random_favorite = @customer.favorite_restaurants.order("RANDOM()").limit(1)
-    @random_wish = @customer.wish_restaurants.order("RANDOM()").limit(1)
-    #@random_favorite = @customer.favorite_restaurants.order("RAND()").limit(1)
-    #@random_wish = @customer.wish_restaurants.order("RAND()").limit(1)
+    #@random_favorite = @customer.favorite_restaurants.order("RANDOM()").limit(1)
+    #@random_wish = @customer.wish_restaurants.order("RANDOM()").limit(1)
+    @random_favorite = @customer.favorite_restaurants.order("RAND()").limit(1)
+    @random_wish = @customer.wish_restaurants.order("RAND()").limit(1)
   end
 
   def edit
@@ -20,8 +20,11 @@ class Public::CustomersController < ApplicationController
 
   def update
     @customer = current_customer
-    @customer.update(customer_params)
-    redirect_to customer_path(current_customer)
+    if @customer.update(customer_params)
+      redirect_to customer_path(current_customer)
+    else
+      render :edit
+    end
   end
 
   def favorites
@@ -43,10 +46,6 @@ class Public::CustomersController < ApplicationController
     @customer.update(is_deleted: true)
     reset_session
     redirect_to root_path
-  end
-
-  def favorites_random
-    @random = @customer.favorite_restaurants.order("RANDOM()").limit(1)
   end
 
   private

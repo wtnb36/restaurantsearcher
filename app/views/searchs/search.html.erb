@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <% if @model == 'customer' %>
+      <h3>ユーザー名 "<%= @content %>" の検索結果<%= @records.count %>件</h3>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ユーザー名</th>
+            <th>お気に入り数  <i class="fas fa-star"></i></th>
+            <th>行きたいお店の数  <i class="fa fa-check-square"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @records.each do |customer| %>
+            <tr>
+              <td><%= link_to customer.nickname, customer_path(customer) %> </td>
+              <td><%= customer.favorites.count %></td>
+              <td><%= customer.wishes.count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <% else @model == 'restaurant' %>
+      <h3>店名 "<%= @content %>" の検索結果<%= @records.count %>件</h3>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>店名</th>
+              <th>住所</th>
+               <th>お気に入り</th>
+              <th>行ってみたい</th>
+              <th>評価</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @records.each do |restaurant| %>
+            <tr>
+              <td><%= link_to restaurant.name, restaurant_path(restaurant.id), data: {"turbolinks"=>false} %></td>
+              <td><%= restaurant.full_address %></td>
+              <td>
+                <% if restaurant.favorited_by?(current_customer) %>
+                  <%= link_to restaurant_favorites_path(restaurant), method: :delete do %>
+                    <i class="fas fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
+                  <% end %>
+              <% else %>
+                  <%= link_to restaurant_favorites_path(restaurant), method: :post do %>
+                    <i class="far fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
+                  <% end %>
+              <% end %>
+              </td>
+              <td>
+              <% if restaurant.wished_by?(current_customer) %>
+                <%= link_to restaurant_wishes_path(restaurant), method: :delete do %>
+                  <i class="far fa-check-square"></i><%= restaurant.wishes.count %>
+                <% end %>
+              <% else %>
+                <%= link_to restaurant_wishes_path(restaurant), method: :post do %>
+                  <i class="far fa-square"></i><%= restaurant.wishes.count %>
+                <% end %>
+              <% end %>
+              </td>
+              <td>
+                <div class="card-content">
+                <div class="content average-score">
+                  <div class="star-rating mb-2">
+                    <div class="star-rating-front" style="width: <%= restaurant.review_score_pct %>%">★★★★★</div>
+                    <div class="star-rating-back">★★★★★</div>
+                  </div>
+                  <div class="average-score-display ml-3 pt-2">
+                    <%= restaurant.review_score_ave %>点（<%= restaurant.reviews.count %>件のレビュー)
+                  </div>
+                </div>
+              </div>
+              </td>
+            </tr>
+            <% end %>
+          </tdody>
+        </table>
+  　<% end %>
+  </div>
+</div>

@@ -9,3 +9,9 @@
 .wish_random{
   display: none;
 }
+
+.favorite_index, .wish_index {
+  display: block;
+  overflow-y: scroll;
+  height: 500px;
+}

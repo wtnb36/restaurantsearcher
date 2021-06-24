@@ -7,24 +7,47 @@
         <%= render "customers/shared/error_messages", resource: resource %>
         <thead class="thead-dark">
           <tr>
+            <div class="form-row">
             <th>氏名
                 <%= f.label :last_name, "(姓 ・" %>
                 <%= f.label :first_name, "名)" %></th>
-            <td><%= f.text_field :last_name, autofocus: true, placeholder: "姓" %>
-                <%= f.text_field :first_name, placeholder: "名" %></td>
+            </div>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.text_field :last_name, autofocus: true, placeholder: "姓", class: "form-control" %>
+                </div>
+                <div class="col-4">
+                  <%= f.text_field :first_name, placeholder: "名", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th>フリガナ
                 <%= f.label :last_name_kana, "(セイ ・" %>
                 <%= f.label :first_name_kana, "メイ)" %></th>
-            <td><%= f.text_field :last_name_kana, placeholder: "セイ" %>
-                <%= f.text_field :first_name_kana, placeholder: "メイ" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.text_field :last_name_kana, placeholder: "セイ", class: "form-control" %>
+                </div>
+                <div class="col-4">
+                  <%= f.text_field :first_name_kana, placeholder: "メイ", class: "form-control" %>
+                </div>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :nickname, "ユーザー名" %></th>
-            <td><%= f.text_field :nickname,
-                placeholder: "web上で表示される名前です（いつでも変更可）",
-                class: "form-control" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-6">
+                <%= f.text_field :nickname,
+                    placeholder: "web上で表示される名前です（いつでも変更可）",
+                    class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :sex, "性別" %></th>
@@ -49,18 +72,34 @@
           </tr>
           <tr>
             <th><%= f.label :postcode, "郵便番号(ハイフンなし)" %></th>
-            <td><%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :prefecture_name, "都道府県" %></th>
             <td>
-              <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all,
-              :code, :name, { prompt: '選択してください' }, class: 'form-control'%>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all,
+                  :code, :name, { prompt: '選択してください' }, class: 'form-control'%>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <th><%= f.label :address_city, "市区町村" %></th>
-            <td><%= f.text_field :address_city, autocomplete: "address_city", class: "form-control" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.text_field :address_city, autocomplete: "address_city", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :address_street, "以降の住所" %></th>
@@ -72,11 +111,23 @@
           </tr>
           <tr>
             <th><%= f.label :phone_number, "電話番号(ハイフンなし)" %></th>
-            <td><%= f.text_field :phone_number, autocomplete: "phone_number" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.text_field :phone_number, autocomplete: "phone_number", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :email, "メールアドレス" %></th>
-            <td><%= f.email_field :email, autocomplete: "email" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th>
@@ -85,12 +136,26 @@
                 <em>(<%= @minimum_password_length %>文字以上)</em>
               <% end %>
             </th>
-            <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :password_confirmation, "パスワード確認用" %></th>
-            <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+            <td>
+              <div class="form-row">
+                <div class="col-4">
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+                </div>
+              </div>
+            </td>
           </tr>
+        </thead>
+        <thead>
           <tr>
             <th></th>
             <td>
