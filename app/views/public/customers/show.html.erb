@@ -1,7 +1,153 @@
-<h1>会員詳細</h1>
-<div>
-  <p>ユーザー名 <%= @customer.nickname %></p>
-  <p>お気に入り一覧</p>
-  <p>ウィッシュリスト一覧</p>
-  <%= link_to '編集する', edit_customer_path(current_customer) %>
+<div class="container">
+  <div class="row">
+    <h1>会員詳細</h1>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>ユーザー名</th>
+          <td>
+            <% if @customer == current_customer %>
+              <%= @customer.nickname %>
+              <%= link_to '編集する', edit_customer_path(current_customer), class: "btn btn-primary", data: {"turbolinks"=>false} %>
+              <%= link_to '履歴一覧', histories_path, class: "btn btn-success" %>
+            <% else %>
+              <%= @customer.nickname + "さん" %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <% if @customer == current_customer %>
+          <th>お気に入りからランダムで選択</th>
+          <td>
+            <button class="show_favorite_Random">スタート</button>
+              <% @random_favorite.each do |restaurant| %>
+              <%= link_to restaurant.name, restaurant_path(restaurant), class: "favorite_random" %>
+              <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>行きたいお店からランダムで選択</th>
+          <td>
+            <button class="show_wish_Random">スタート</button>
+            <% @random_wish.each do |restaurant| %>
+            <%= link_to restaurant.name, restaurant_path(restaurant), class: "wish_random" %>
+            <% end %>
+          </td>
+        <% end %>
+        </tr>
+      </thead>
+    </table>
+  </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-6">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr><th>お気に入り一覧 (お気に入り登録件数 <%= @customer.favorites.count %> 件)</th></tr>
+        </thead>
+        <tbody class="favorite_index">
+          <% @favorite_restaurants.each do |favorite_restaurant| %>
+          <tr>
+            <td>
+              <%= link_to favorite_restaurant.name, restaurant_path(favorite_restaurant.id) %>
+              <%= favorite_restaurant.full_address %>
+            </td>
+          </tr>
+          <tr class="table-borderless">
+            <td><i class="fas fa-phone-square-alt"></i><%= favorite_restaurant.phone_number %></td>
+          </tr>
+          <tr class="table-borderless">
+            <td>
+              <div class="card-content">
+                <div class="content average-score">
+                  <div class="star-rating mb-2">
+                    <div class="star-rating-front" style="width: <%= favorite_restaurant.review_score_pct %>%">★★★★★</div>
+                    <div class="star-rating-back">★★★★★</div>
+                  </div>
+                  <div class="average-score-display ml-3 pt-2">
+                    <%= favorite_restaurant.review_score_ave %>点（<%= favorite_restaurant.reviews.count %>件のレビュー）
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-borderless">
+            <td>
+              <% if favorite_restaurant.favorited_by?(current_customer) %>
+                <p>
+                  <%= link_to restaurant_favorites_path(favorite_restaurant.id), method: :delete do %>
+                  <i class="fas fa-star"></i><%= favorite_restaurant.favorites.count %> お気に入り解除
+                  <% end %>
+                </p>
+              <% else %>
+                <p>
+                  <%= link_to restaurant_favorites_path(favorite_restaurant.id), method: :post do %>
+                  <i class="far fa-star"></i><%= favorite_restaurant.favorites.count %> お気に入り登録
+                  <% end %>
+                </p>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate(@favorite_restaurants, param_name: "favorite_page") %>
+    </div>
+   <div class="col-sm-6">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>行きたいお店一覧 (行きたいお店登録件数 <%= @customer.wishes.count %> 件)</th>
+        </tr>
+      </thead>
+      <tbody class="wish_index">
+        <% @wish_restaurants.each do |wish_restaurant| %>
+        <tr>
+          <td>
+            <%= link_to wish_restaurant.name, restaurant_path(wish_restaurant.id) %>
+            <%= wish_restaurant.full_address %>
+          </td>
+        </tr>
+        <tr class="table-borderless">
+          <td><i class="fas fa-phone-square-alt"></i><%= wish_restaurant.phone_number %></td>
+        </tr>
+        <tr class="table-borderless">
+          <td>
+            <div class="card-content">
+              <div class="content average-score">
+                <div class="star-rating mb-2">
+                  <div class="star-rating-front" style="width: <%= wish_restaurant.review_score_pct %>%">★★★★★</div>
+                  <div class="star-rating-back">★★★★★</div>
+                </div>
+                <div class="average-score-display ml-3 pt-2">
+                  <%= wish_restaurant.review_score_ave %>点（<%= wish_restaurant.reviews.count %>件のレビュー）
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="table-borderless">
+          <td>
+            <% if wish_restaurant.wished_by?(current_customer) %>
+              <p>
+                <%= link_to restaurant_wishes_path(wish_restaurant.id), method: :delete do %>
+                <i class="far fa-check-square"></i><%= wish_restaurant.wishes.count %> 行きたい解除
+                <% end %>
+              </p>
+            <% else %>
+              <p>
+                <%= link_to restaurant_wishes_path(wish_restaurant.id), method: :post do %>
+                <i class="far fa-square"></i><%= wish_restaurant.wishes.count %> 行きたい登録
+                <% end %>
+              </p>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate(@wish_restaurants, param_name: "wish_page") %>
+  </div>
+</div>
+

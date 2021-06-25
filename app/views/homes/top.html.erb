@@ -1,1 +1,19 @@
-<h1>レストランサーチャー（仮）</h1>
+<div class="top-background-image">
+  <div class="container">
+    <div class="row">
+      <div class="col col-xl-12">
+          <h1 class="home-title">レストランサーチャー</h1>
+          <p class="home-text">自分のお気に入りのお店を投稿してみんなで共有しよう</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col col-xl-12">
+        <% @restaurants.each do |restaurant| %>
+          <%= attachment_image_tag restaurant, :image, format: 'jpeg', size: "200x200" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

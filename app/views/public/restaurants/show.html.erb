@@ -1,9 +1,110 @@
 <h1>店舗情報詳細</h1>
-<P>店名<%= @restaurant.name %></P>
-<P>住所<%= @restaurant.full_address %></P>
-<P>電話番号<%= @restaurant.phone_number %></P><%# 電話番号が見にくいので表示方法検討 %>
-<P>営業時間<%= @restaurant.business_hours %></P>
-<P>定休日日<%= @restaurant.holiday %></P>
-<%= link_to "店舗情報編集", edit_restaurant_path(@restaurant) %>
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-6">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>店名</th>
+            <td><%= @restaurant.name %>
+              <% if @restaurant.is_deleted == true %>
+                <i class="far fa-window-close"> 現在営業しておりません</i>
+                <%= @restaurant.reason %></td>
+              <% end %>
+          </tr>
+          <tr><th>住所</th><td><%= @restaurant.full_address %></td></tr>
+          <tr><th>電話番号</th><td><%= @restaurant.phone_number %></td></tr><%# 電話番号が見にくいので表示方法検討 %>
+          <tr><th>営業時間</th><td><%= @restaurant.business_hours %></td></tr>
+          <tr><th>定休日</th><td><%= @restaurant.holiday %></td></tr>
+          <tr><th>喫煙・禁煙</th><td><%= @restaurant.tobacco %></td></tr>
+          <tr><th>紹介文</th><td><%= @restaurant.introduction %></td></tr>
+          <tr>
+            <th>お気に入り</th>
+            <td>
+              <% if @restaurant.favorited_by?(current_customer) %>
+              　<%= link_to restaurant_favorites_path(@restaurant), method: :delete do %>
+                  <i class="fas fa-star", style="color:gold;"></i><%= @restaurant.favorites.count %>
+                <% end %>
+                登録解除
+              <% else %>
+                <%= link_to restaurant_favorites_path(@restaurant), method: :post do %>
+                  <i class="far fa-star", style="color:gold;"></i><%= @restaurant.favorites.count %>
+                <% end %>
+                登録する
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>行ってみたい</th>
+            <td>
+              <% if @restaurant.wished_by?(current_customer) %>
+              　<%= link_to restaurant_wishes_path(@restaurant), method: :delete do %>
+                  <i class="far fa-check-square"></i><%= @restaurant.wishes.count %>
+                <% end %>
+                登録解除
+              <% else %>
+                <%= link_to restaurant_wishes_path(@restaurant), method: :post do %>
+                  <i class="far fa-square"></i><%= @restaurant.wishes.count %>
+                <% end %>
+                登録する
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>評価</th>
+            <td>
+              <div class="star-score-show">
+                <div id="star-score-ave<%= @restaurant.id %>"></div>
+                <script>
+                $('#star-score-ave<%= @restaurant.id %>').raty({
+                  size: 36,
+                  starOff:  '<%= asset_path('star-off.png') %>',
+                  starOn : '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  half: true,
+                  readOnly: true,
+                  score: <%= @restaurant.review_score_ave %>,
+                });
+                </script>
+                <%= @restaurant.review_score_ave %>点
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <td>
+              <%= link_to "店舗情報編集", edit_restaurant_path(@restaurant),
+                  class: "btn btn-primary", data: {"turbolinks"=>false} %>
+              <% if @restaurant.is_deleted == false %>
+              <%= link_to "削除依頼", restaurant_deletion_request_path(@restaurant), class: "btn btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <td>
+              <%= form_with model: @history, local: true do |f| %>
+              <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
+              <%= f.label :date, "日付" %>
+              <%= f.date_select(
+              :date,
+              use_month_numbers: true,
+              start_year: (Time.now.year),
+              end_year: (Time.now.year+1),
+              date_separator: " / ") %>  に
+              <%= f.submit "ここに行く", class: "btn btn-success" %>
+              <% end %>
+            </td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="col-sm-3">
+      <%= attachment_image_tag @restaurant, :image, format: 'jpeg', size: "200x200", class: "img-responsive" %>
+    </div>
+    <%= render 'public/reviews/form', review: @review, restaurant: @restaurant, my_review: @my_review, review_index: @review_index %>
+  </div>
+  <div class="row">
 
-<%= render 'public/reviews/form', review: @review, restaurant: @restaurant %>
+  </div>
+</div>

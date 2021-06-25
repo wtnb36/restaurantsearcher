@@ -1,3 +1,17 @@
 // Place all the styles related to the public/customers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.favorite_random{
+  display: none;
+}
+
+.wish_random{
+  display: none;
+}
+
+.favorite_index, .wish_index {
+  display: block;
+  overflow-y: scroll;
+  height: 500px;
+}

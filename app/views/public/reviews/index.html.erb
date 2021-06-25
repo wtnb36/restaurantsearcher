@@ -1,4 +1,15 @@
 <%= @restaurant.name %>
+    <div class="card-content">
+      <div class="content average-score">
+        <div class="star-rating mb-2">
+          <div class="star-rating-front" style="width: <%= @restaurant.review_score_pct %>%">★★★★★</div>
+          <div class="star-rating-back">★★★★★</div>
+        </div>
+        <div class="average-score-display ml-3 pt-2">
+          <%= @restaurant.review_score_ave %>点（<%= @restaurant.reviews.count %>件のレビュー）
+        </div>
+      </div>
+    </div>
 <% @reviews.each do |review| %>
 <%= review.customer.nickname %>
 <%= review.score %>

@@ -16,3 +16,86 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+/*body {
+  background-image: image-url("hoge.jpg");}
+  deployの為画像使用時はこの形式で　image-url（"元の画像名"）
+*/
+
+html,　body {
+  height: 100%;
+}
+
+header {
+  display: flex;
+}
+
+.nav-item {
+  margin: 10px;
+  a {
+    color: white;
+  }
+}
+
+footer {
+  text-align: center;
+  bottom: 0; /*下に固定*/
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.table thead th {
+  border-bottom: none;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination>li>a {
+  border: none;
+}
+
+.top-background-image {
+  width: 100%;
+  height: 500px;
+  background-image: image-url("top.png");
+  background-size: cover;
+  background-color:rgba(255,255,255,0.5);
+  background-blend-mode:lighten;
+}
+
+.home-title {
+  text-align:center;
+  padding-top: 50px;
+}
+
+.home-text {
+  text-align: center;
+  padding: 30px 0 50px 0;
+}
+
+.about-background-image {
+  width: 100%;
+  height: 500px;
+  background-image: image-url("about.jpg");
+  background-size: cover;
+  background-color:rgba(255,255,255,0.8);
+  background-blend-mode:lighten;
+}
+
+.about-text {
+  text-align: center;
+}
+
+.btn {
+  margin: 0 10px;
+}
+
+.star-score-show {
+  display: flex;
+}
+
+.search {
+  justify-content: right;
+}
