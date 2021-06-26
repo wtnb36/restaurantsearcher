@@ -17,6 +17,7 @@ class Customer < ApplicationRecord
 
   validates :nickname, :email, uniqueness: true
 
+
   has_many :reviews, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :wishes, dependent: :destroy

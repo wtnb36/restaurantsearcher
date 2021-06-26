@@ -6,6 +6,22 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      review: レビュー
+    attributes:
+      review:
+        score: 評価
+        content: レビュー
+        models:
+      restaurant:
+    attributes:
+      restaurant:
+        name: 店名
+        postcode: 郵便番号
+        prefecture_code: 都道府県
+        address_city: 市区町村
+        address_street: 以降の住所
+        phone_number: 電話番号
   date:
     abbr_day_names:
     - 日

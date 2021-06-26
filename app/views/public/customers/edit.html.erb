@@ -4,21 +4,40 @@
       <h2>会員情報編集</h2>
       <table class="table">
         <%= form_with model:@customer, local:true do |f| %>
-        <%= render "customers/shared/error_messages", resource: @customer %>
+        <% if @customer.errors.any? %>
+          <h2 style="color:red;">
+            <%= @customer.errors.count %>件のエラーが発生しました
+          </h2>
+        <% end %>
         <thead class="thead-dark">
           <tr>
             <div class="form-row">
             <th>氏名
                 <%= f.label :last_name, "(姓 ・" %>
-                <%= f.label :first_name, "名)" %></th>
+                <%= f.label :first_name, "名)" %>
+            </th>
             </div>
             <td>
               <div class="form-row">
                 <div class="col-4">
                   <%= f.text_field :last_name, autofocus: true, placeholder: "姓", class: "form-control" %>
+                    <% if @customer.errors.include?(:last_name) %>
+                      <ul>
+                        <% @customer.errors.full_messages_for(:last_name).each do |message| %>
+                          <li style="color:red;"><%= message %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
                 </div>
                 <div class="col-4">
                   <%= f.text_field :first_name, placeholder: "名", class: "form-control" %>
+                    <% if @customer.errors.include?(:first_name) %>
+                      <ul>
+                        <% @customer.errors.full_messages_for(:first_name).each do |message| %>
+                          <li style="color:red;"><%= message %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
                 </div>
               </div>
             </td>
@@ -31,9 +50,23 @@
               <div class="form-row">
                 <div class="col-4">
                   <%= f.text_field :last_name_kana, placeholder: "セイ", class: "form-control" %>
+                    <% if @customer.errors.include?(:last_name_kana) %>
+                      <ul>
+                        <% @customer.errors.full_messages_for(:last_name_kana).each do |message| %>
+                          <li style="color:red;"><%= message %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
                 </div>
                 <div class="col-4">
                   <%= f.text_field :first_name_kana, placeholder: "メイ", class: "form-control" %>
+                    <% if @customer.errors.include?(:first_name_kana) %>
+                      <ul>
+                        <% @customer.errors.full_messages_for(:first_name_kana).each do |message| %>
+                          <li style="color:red;"><%= message %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
                 </div>
             </td>
           </tr>
@@ -45,6 +78,13 @@
                 <%= f.text_field :nickname,
                     placeholder: "web上で表示される名前です（いつでも変更可）",
                     class: "form-control" %>
+                  <% if @customer.errors.include?(:nickname) %>
+                    <ul>
+                      <% @customer.errors.full_messages_for(:nickname).each do |message| %>
+                        <li style="color:red;"><%= message %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
                 </div>
               </div>
             </td>
@@ -56,6 +96,15 @@
               <%= f.label :男性 %>
               <%= f.radio_button :sex, :女性 %>
               <%= f.label :女性 %>
+              <div class="col-8">
+                <% if @customer.errors.include?(:sex) %>
+                  <ul>
+                    <% @customer.errors.full_messages_for(:sex).each do |message| %>
+                      <li style="color:red;"><%= message %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
             </td>
           </tr>
           <tr>
@@ -77,6 +126,15 @@
                 <div class="col-4">
                   <%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %>
                 </div>
+                <div class="col-8">
+                  <% if @customer.errors.include?(:postcode) %>
+                    <ul>
+                      <% @customer.errors.full_messages_for(:postcode).each do |message| %>
+                        <li style="color:red;"><%= message %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </div>
               </div>
             </td>
           </tr>
@@ -88,6 +146,15 @@
                   <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all,
                   :code, :name, { prompt: '選択してください' }, class: 'form-control'%>
                 </div>
+                <div class="col-8">
+                  <% if @customer.errors.include?(:prefecture_code) %>
+                    <ul>
+                      <% @customer.errors.full_messages_for(:prefecture_code).each do |message| %>
+                        <li style="color:red;"><%= message %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </div>
               </div>
             </td>
           </tr>
@@ -98,12 +165,30 @@
                 <div class="col-4">
                   <%= f.text_field :address_city, autocomplete: "address_city", class: "form-control" %>
                 </div>
+                <div class="col-8">
+                  <% if @customer.errors.include?(:address_city) %>
+                    <ul>
+                      <% @customer.errors.full_messages_for(:address_city).each do |message| %>
+                        <li style="color:red;"><%= message %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </div>
               </div>
             </td>
           </tr>
           <tr>
             <th><%= f.label :address_street, "以降の住所" %></th>
-            <td><%= f.text_field :address_street, autocomplete: "address_street", class: "form-control" %></td>
+            <td>
+              <%= f.text_field :address_street, autocomplete: "address_street", class: "form-control" %>
+                <% if @customer.errors.include?(:address_street) %>
+                  <ul>
+                    <% @customer.errors.full_messages_for(:address_street).each do |message| %>
+                      <li style="color:red;"><%= message %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :address_building, "建物名" %></th>
@@ -116,6 +201,15 @@
                 <div class="col-4">
                   <%= f.text_field :phone_number, autocomplete: "phone_number", class: "form-control" %>
                 </div>
+                <div class="col-8">
+                    <% if @customer.errors.include?(:phone_number) %>
+                      <ul>
+                        <% @customer.errors.full_messages_for(:phone_number).each do |message| %>
+                          <li style="color:red;"><%= message %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                </div>
               </div>
             </td>
           </tr>
@@ -125,6 +219,15 @@
               <div class="form-row">
                 <div class="col-4">
                   <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+                </div>
+                <div class="col-8">
+                  <% if @customer.errors.include?(:email) %>
+                    <ul>
+                      <% @customer.errors.full_messages_for(:email).each do |message| %>
+                        <li style="color:red;"><%= message %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
                 </div>
               </div>
             </td>

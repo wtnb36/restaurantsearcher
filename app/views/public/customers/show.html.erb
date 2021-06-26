@@ -1,42 +1,44 @@
 <div class="container">
   <div class="row">
     <h1>会員詳細</h1>
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>ユーザー名</th>
-          <td>
-            <% if @customer == current_customer %>
-              <%= @customer.nickname %>
-              <%= link_to '編集する', edit_customer_path(current_customer), class: "btn btn-primary", data: {"turbolinks"=>false} %>
-              <%= link_to '履歴一覧', histories_path, class: "btn btn-success" %>
-            <% else %>
-              <%= @customer.nickname + "さん" %>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <% if @customer == current_customer %>
-          <th>お気に入りからランダムで選択</th>
-          <td>
-            <button class="show_favorite_Random">スタート</button>
-              <% @random_favorite.each do |restaurant| %>
-              <%= link_to restaurant.name, restaurant_path(restaurant), class: "favorite_random" %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ユーザー名</th>
+            <td>
+              <% if @customer == current_customer %>
+                <%= @customer.nickname %>
+                <%= link_to '編集する', edit_customer_path(current_customer), class: "btn btn-primary", data: {"turbolinks"=>false} %>
+                <%= link_to '履歴一覧', histories_path, class: "btn btn-success" %>
+              <% else %>
+                <%= @customer.nickname + "さん" %>
               <% end %>
-          </td>
-        </tr>
-        <tr>
-          <th>行きたいお店からランダムで選択</th>
-          <td>
-            <button class="show_wish_Random">スタート</button>
-            <% @random_wish.each do |restaurant| %>
-            <%= link_to restaurant.name, restaurant_path(restaurant), class: "wish_random" %>
-            <% end %>
-          </td>
-        <% end %>
-        </tr>
-      </thead>
-    </table>
+            </td>
+          </tr>
+          <tr>
+            <% if @customer == current_customer %>
+            <th>お気に入りからランダムで選択</th>
+            <td>
+              <button class="show_favorite_Random">スタート</button>
+                <% @random_favorite.each do |restaurant| %>
+                <%= link_to restaurant.name, restaurant_path(restaurant), class: "favorite_random" %>
+                <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>行きたいお店からランダムで選択</th>
+            <td>
+              <button class="show_wish_Random">スタート</button>
+              <% @random_wish.each do |restaurant| %>
+              <%= link_to restaurant.name, restaurant_path(restaurant), class: "wish_random" %>
+              <% end %>
+            </td>
+          <% end %>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
 </div>
 <div class="container">

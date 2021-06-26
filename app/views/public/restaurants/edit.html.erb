@@ -1,73 +1,130 @@
 <div class="container">
-  <div class="row">
-    <h1>店舗情報編集</h1>
-    <table class ="table">
-      <%= form_with model:@restaurant, local:true do |f| %>
-      <thead class="thead-dark">
-        <tr>
-          <th><%= f.label :name, "店名" %></th>
-          <td><%= f.text_field :name, autofocus: true, class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :postcode, "郵便番号(ハイフンなし)" %></th>
-          <td><%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :prefecture_name, "都道府県" %></th>
-          <td><%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all,
-              :code, :name, { prompt: '選択してください' }, class: 'form-control'%></td>
-        </tr>
-        <tr>
-          <th><%= f.label :address_city, "市区町村" %><br /></th>
-          <td><%= f.text_field :address_city, autocomplete: "address_city", class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :address_street, "以降の住所" %></th>
-          <td><%= f.text_field :address_street, autocomplete: "address_street", class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :address_building, "建物名" %></th>
-          <td><%= f.text_field :address_building, autocomplete: "address_building", class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :phone_number, "電話番号(ハイフンなし)" %></th>
-          <td><%= f.text_field :phone_number, autocomplete: "phone_number", class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :business_hours, "営業時間" %></th>
-          <td><%= f.text_field :business_hours, class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :holiday, "休業日" %></th>
-          <td><%= f.text_field :holiday, class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th>喫煙・禁煙</th>
-          <td>
-            <%= f.radio_button :tobacco, :喫煙可 %>
-            <%= f.label :喫煙可 %>
-            <%= f.radio_button :tobacco, :禁煙 %>
-            <%= f.label :禁煙 %>
-            <%= f.radio_button :tobacco, :不明 %>
-            <%= f.label :不明 %>
-          </td>
-        </tr>
-        <tr>
-          <th><%= f.label :introduction, "紹介文" %></th>
-          <td><%= f.text_area :introduction, class: "form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :image, "画像" %></th>
-          <td><%= f.attachment_field :image %></td>
-        </tr>
-      </thrad>
-      <thead>
-        <tr>
-          <th></th>
-          <td><%= f.submit "変更を保存", class: "btn btn-primary" %></td>
-        </tr>
-      </thead>
-      <% end %>
-    </table>
-  </div>
+  <h1>店舗情報編集</h1>
+  <table class ="table">
+    <%= form_with model:@restaurant, local:true do |f| %>
+    <% if @restaurant.errors.any? %>
+      <h2 style="color:red;">
+        <%= @restaurant.errors.count %>件のエラーが発生しました
+      </h2>
+    <% end %>
+    <thead class="thead-dark">
+      <tr>
+        <th><%= f.label :name, "店名" %></th>
+        <td>
+          <%= f.text_field :name, autofocus: true, class: "form-control" %>
+          <% if @restaurant.errors.include?(:name) %>
+            <ul>
+              <% @restaurant.errors.full_messages_for(:name).each do |message| %>
+                <li style="color:red;"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :postcode, "郵便番号(ハイフンなし)" %></th>
+        <td>
+          <%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %>
+          <% if @restaurant.errors.include?(:postcode) %>
+            <ul>
+              <% @restaurant.errors.full_messages_for(:postcode).each do |message| %>
+                <li style="color:red;"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :prefecture_name, "都道府県" %></th>
+        <td>
+          <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all,
+              :code, :name, { prompt: '選択してください' }, class: 'form-control'%>
+          <% if @restaurant.errors.include?(:prefecture_code) %>
+            <ul>
+              <% @restaurant.errors.full_messages_for(:prefecture_code).each do |message| %>
+                <li style="color:red;"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :address_city, "市区町村" %><br /></th>
+        <td>
+          <%= f.text_field :address_city, autocomplete: "address_city", class: "form-control" %>
+          <% if @restaurant.errors.include?(:address_city) %>
+            <ul>
+              <% @restaurant.errors.full_messages_for(:address_city).each do |message| %>
+                <li style="color:red;"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :address_street, "以降の住所" %></th>
+        <td>
+          <%= f.text_field :address_street, autocomplete: "address_street", class: "form-control" %>
+          <% if @restaurant.errors.include?(:address_street) %>
+            <ul>
+              <% @restaurant.errors.full_messages_for(:address_street).each do |message| %>
+                <li style="color:red;"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :address_building, "建物名" %></th>
+        <td><%= f.text_field :address_building, autocomplete: "address_building", class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :phone_number, "電話番号(ハイフンなし)" %></th>
+        <td>
+          <%= f.text_field :phone_number, autocomplete: "phone_number", class: "form-control" %>
+          <% if @restaurant.errors.include?(:phone_number) %>
+            <ul>
+              <% @restaurant.errors.full_messages_for(:phone_number).each do |message| %>
+                <li style="color:red;"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :business_hours, "営業時間" %></th>
+        <td><%= f.text_field :business_hours, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :holiday, "休業日" %></th>
+        <td><%= f.text_field :holiday, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th>喫煙・禁煙</th>
+        <td>
+          <%= f.radio_button :tobacco, :喫煙可 %>
+          <%= f.label :喫煙可 %>
+          <%= f.radio_button :tobacco, :禁煙 %>
+          <%= f.label :禁煙 %>
+          <%= f.radio_button :tobacco, :不明 %>
+          <%= f.label :不明 %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :introduction, "紹介文" %></th>
+        <td><%= f.text_area :introduction, class: "form-control" %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :image, "画像" %></th>
+        <td><%= f.attachment_field :image %></td>
+      </tr>
+    </thrad>
+    <thead>
+      <tr>
+        <th></th>
+        <td><%= f.submit "変更を保存", class: "btn btn-primary" %></td>
+      </tr>
+    </thead>
+    <% end %>
+  </table>
 </div>

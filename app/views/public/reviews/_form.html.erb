@@ -28,6 +28,16 @@
   <% else %>
     <p>レビューはありません</p>
     <%= form_with model: review, url: restaurant_reviews_path(restaurant), local: true do |f| %>
+      <% if review.errors.any? %>
+        <h5 style="color:red;">
+          <%= review.errors.count %>件のエラーが発生しました
+        </h5>
+        <ul>
+          <% review.errors.full_messages.each do |message| %>
+          <li style="color:red"><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
       <div class="star-form-group" id="star">               <%#id要素の付与がポイント%>
         <%= f.label :score, "評価" %>　<%#保存したいカラムの指定%>
         <%= f.hidden_field :score %>
