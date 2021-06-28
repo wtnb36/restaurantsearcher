@@ -23,16 +23,8 @@
           <tr>
             <td><%= link_to restaurant.name, restaurant_path(restaurant.id), data: {"turbolinks"=>false} %></td>
             <td><%= restaurant.full_address %></td>
-            <td>
-              <% if restaurant.favorited_by?(current_customer) %>
-                <%= link_to restaurant_favorites_path(restaurant), method: :delete do %>
-                  <i class="fas fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
-                <% end %>
-              <% else %>
-                <%= link_to restaurant_favorites_path(restaurant), method: :post do %>
-                  <i class="far fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
-                <% end %>
-              <% end %>
+            <td class="restaurant_<%= restaurant.id %>">
+              <%= render "public/favorites/favorite", restaurant: restaurant %>
             </td>
             <td>
               <% if restaurant.wished_by?(current_customer) %>
