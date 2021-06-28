@@ -18,8 +18,8 @@ module Restaurantsearcher
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
 
-    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
-    html_tag
-end
+    config.action_view.field_error_proc = proc do |html_tag, _instance|
+      html_tag
+    end
   end
 end

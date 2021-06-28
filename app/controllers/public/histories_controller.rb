@@ -6,9 +6,9 @@ class Public::HistoriesController < ApplicationController
     @history.customer_id = current_customer.id
     if @history.save
       redirect_to request.referer
-    #else
-      #@restaurant = Restaurant.find(params[:restaurant_id])
-      #render "public/restaurants/show"
+      # else
+      # @restaurant = Restaurant.find(params[:restaurant_id])
+      # render "public/restaurants/show"
     end
   end
 

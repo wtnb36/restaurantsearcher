@@ -4,7 +4,7 @@ class CreateFavorites < ActiveRecord::Migration[5.2]
       t.references  :customer, null: false, foreign_key: true
       t.references  :restaurant, null: false, foreign_key: true
       t.timestamps
-      t.index [:customer_id, :restaurant_id], unique: true
+      t.index %i[customer_id restaurant_id], unique: true
     end
   end
 end

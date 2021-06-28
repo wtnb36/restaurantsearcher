@@ -5,30 +5,30 @@ class Restaurant < ApplicationRecord
   has_many :histories, dependent: :destroy
 
   validates :name, :postcode, :prefecture_code, :address_city,
-            :address_street, :phone_number, presence:true
+            :address_street, :phone_number, presence: true
 
   # 店名、市区町村以降の住所,電話番号が同一のものは作れない
-  validates :name, uniqueness: { scope: [:address_street, :phone_number] }
+  validates :name, uniqueness: { scope: %i[address_street phone_number] }
 
   def full_address
-    "〒" + postcode.to_s + " " + prefecture_name + address_city + address_street + address_building
+    '〒' + postcode.to_s + ' ' + prefecture_name + address_city + address_street + address_building
   end
 
-  #reviewsscore平均値
+  # reviewsscore平均値
   def review_score_ave
-    unless self.reviews.empty?
-      reviews.average(:score).round(1).to_f
-    else
+    if reviews.empty?
       0.0
+    else
+      reviews.average(:score).round(1).to_f
     end
   end
 
-  #reviewsscore百分率
+  # reviewsscore百分率
   def review_score_pct
-    unless self.reviews.empty?
-      reviews.average(:score).round(1).to_f*100/5
-    else
+    if reviews.empty?
       0.0
+    else
+      reviews.average(:score).round(1).to_f * 100 / 5
     end
   end
 
@@ -45,11 +45,10 @@ class Restaurant < ApplicationRecord
   attachment :image
 
   def self.looks(searches, words)
-    if searches == "perfect_match"
-      @restaurant = Restaurant.where("name LIKE ?", "#{words}")
-    else
-      @restaurant = Restaurant.where("name LIKE ?", "%#{words}%")
-    end
+    @restaurant = if searches == 'perfect_match'
+                    Restaurant.where('name LIKE ?', words.to_s)
+                  else
+                    Restaurant.where('name LIKE ?', "%#{words}%")
+                  end
   end
-
 end

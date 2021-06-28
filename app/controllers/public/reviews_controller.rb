@@ -9,7 +9,7 @@ class Public::ReviewsController < ApplicationController
       redirect_to restaurant_path(@restaurant)
     else
       @my_review = Review.where(customer_id: current_customer.id, restaurant_id: @restaurant)
-      render "public/restaurants/show"
+      render 'public/restaurants/show'
     end
   end
 

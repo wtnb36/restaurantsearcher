@@ -54,14 +54,14 @@ class Public::RestaurantsController < ApplicationController
 
   def restaurant_params
     params.require(:restaurant).permit(
-      :name, :postcode, :prefecture_code,:address_city,
-      :address_street, :address_building,:phone_number,
+      :name, :postcode, :prefecture_code, :address_city,
+      :address_street, :address_building, :phone_number,
       :business_hours, :holiday, :reason, :is_deleted,
-      :tobacco, :introduction, :image)
+      :tobacco, :introduction, :image
+    )
   end
 
   def history_params
     params.require(:history).permit(:restaurant_id, :date)
   end
-
 end

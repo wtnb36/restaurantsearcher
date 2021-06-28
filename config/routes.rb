@@ -10,16 +10,15 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :customers, only: [:index, :show, :update, :destroy]
-    resources :restaurants, only: [:index, :show, :update, :destroy]
+    resources :customers, only: %i[index show update destroy]
+    resources :restaurants, only: %i[index show update destroy]
   end
 
-
   devise_for :customers, controllers: {
-  sessions:      'customers/sessions',
-  passwords:     'customers/passwords',
-  registrations: 'customers/registrations'
-}
+    sessions: 'customers/sessions',
+    passwords: 'customers/passwords',
+    registrations: 'customers/registrations'
+  }
 
   root 'homes#top'
   get '/about', to: 'homes#about'
@@ -27,16 +26,15 @@ Rails.application.routes.draw do
   scope module: 'public' do
     get 'customers/unsubscribe', to: 'customers#unsubscribe', as: 'unsubscribe'
     patch 'customers/withdrawal', to: 'customers#withdrawal', as: 'withdrawal'
-    #resources :maps, only: [:index] 未実装
-    resources :customers, only: [:index, :show, :edit, :update]
+    # resources :maps, only: [:index] 未実装
+    resources :customers, only: %i[index show edit update]
     resources :restaurants do
       get 'deletion_request', to: 'restaurants#deletion_request', as: 'deletion_request'
       patch 'deletion', to: 'restaurants#deletion', as: 'deletion'
-      resources :reviews, only: [:create, :destroy]
-      resource :favorites, only: [:create, :destroy]
-      resource :wishes, only: [:create, :destroy]
+      resources :reviews, only: %i[create destroy]
+      resource :favorites, only: %i[create destroy]
+      resource :wishes, only: %i[create destroy]
     end
     resources :histories, only: [:index]
   end
-
 end

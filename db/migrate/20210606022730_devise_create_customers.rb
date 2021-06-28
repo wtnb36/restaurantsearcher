@@ -4,8 +4,8 @@ class DeviseCreateCustomers < ActiveRecord::Migration[5.2]
   def change
     create_table :customers do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -47,7 +47,6 @@ class DeviseCreateCustomers < ActiveRecord::Migration[5.2]
       t.string :phone_number
       t.boolean :is_deleted, default: false, null: false
       t.timestamps null: false
-
     end
 
     add_index :customers, :email,                unique: true
