@@ -20,34 +20,14 @@
           <tr><th>紹介文</th><td><%= @restaurant.introduction %></td></tr>
           <tr>
             <th>お気に入り</th>
-            <td>
-              <% if @restaurant.favorited_by?(current_customer) %>
-              　<%= link_to restaurant_favorites_path(@restaurant), method: :delete do %>
-                  <i class="fas fa-star", style="color:gold;"></i><%= @restaurant.favorites.count %>
-                <% end %>
-                登録解除
-              <% else %>
-                <%= link_to restaurant_favorites_path(@restaurant), method: :post do %>
-                  <i class="far fa-star", style="color:gold;"></i><%= @restaurant.favorites.count %>
-                <% end %>
-                登録する
-              <% end %>
+            <td class="favorite_restaurant_<%= @restaurant.id %>">
+              <%= render "public/favorites/favorite", restaurant: @restaurant %>
             </td>
           </tr>
           <tr>
             <th>行ってみたい</th>
-            <td>
-              <% if @restaurant.wished_by?(current_customer) %>
-              　<%= link_to restaurant_wishes_path(@restaurant), method: :delete do %>
-                  <i class="far fa-check-square"></i><%= @restaurant.wishes.count %>
-                <% end %>
-                登録解除
-              <% else %>
-                <%= link_to restaurant_wishes_path(@restaurant), method: :post do %>
-                  <i class="far fa-square"></i><%= @restaurant.wishes.count %>
-                <% end %>
-                登録する
-              <% end %>
+            <td class="wish_restaurant_<%= @restaurant.id %>">
+              <%= render "public/wishes/wish", restaurant: @restaurant %>
             </td>
           </tr>
           <tr>
