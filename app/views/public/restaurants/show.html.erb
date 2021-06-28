@@ -8,9 +8,9 @@
             <th>店名</th>
             <td><%= @restaurant.name %>
               <% if @restaurant.is_deleted == true %>
-                <i class="far fa-window-close"> 現在営業しておりません</i>
-                <%= @restaurant.reason %></td>
+                <i class="far fa-window-close", style="color:red;"> 現在営業しておりません <%= @restaurant.reason %></i>
               <% end %>
+            </td>
           </tr>
           <tr><th>住所</th><td><%= @restaurant.full_address %></td></tr>
           <tr><th>電話番号</th><td><%= @restaurant.phone_number %></td></tr><%# 電話番号が見にくいので表示方法検討 %>

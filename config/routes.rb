@@ -2,12 +2,18 @@ Rails.application.routes.draw do
   get 'search' => 'searchs#search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  devise_for :admins, skip: :all
-  devise_scope :admin do
-  get 'admins/sign_in' => 'admins/sessions#new', as: :new_admin_session
-  post 'admins/sign_in' => 'admins/sessions#create', as: :admin_session
-  delete 'logout' => 'admins/sessions#destroy', as: :destroy_admin_session
-  end
+  devise_for :admins, controllers: {
+  sessions:      'admins/sessions',
+  passwords:     'admins/passwords',
+  registrations: 'admins/registrations'
+}
+
+  #devise_for :admins, skip: :all
+  #devise_scope :admin do
+    #get 'admins/sign_in' => 'admins/sessions#new', as: :new_admin_session
+    #post 'admins/sign_in' => 'admins/sessions#create', as: :admin_session
+    #delete 'logout' => 'admins/sessions#destroy', as: :destroy_admin_session
+  #end
 
   namespace :admin do
     resources :customers, only: [:index, :show, :update, :destroy]
@@ -27,6 +33,7 @@ Rails.application.routes.draw do
   scope module: 'public' do
     get 'customers/unsubscribe', to: 'customers#unsubscribe', as: 'unsubscribe'
     patch 'customers/withdrawal', to: 'customers#withdrawal', as: 'withdrawal'
+    #resources :maps, only: [:index] 未実装
     resources :customers, only: [:index, :show, :edit, :update]
     resources :restaurants do
       get 'deletion_request', to: 'restaurants#deletion_request', as: 'deletion_request'
@@ -35,7 +42,7 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
       resource :wishes, only: [:create, :destroy]
     end
-    resources :histories
+    resources :histories, only: [:index]
   end
 
 end

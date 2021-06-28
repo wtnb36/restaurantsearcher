@@ -2,18 +2,20 @@
   <div class="row">
     <div class="col">
       <h2>削除依頼</h2>
-      <table class="table table-borderless">
-        <thead class="thead-dark">
-        <%= form_with url: restaurant_deletion_path, model:@restaurant, local:true, method: :patch do |f| %>
-          <tr>
-            <th><%= f.label :reason, "削除理由"%></th>
-            <td scope="col col-sm-8"><%= f.text_field :reason %>
+      <%= form_with url: restaurant_deletion_path, model:@restaurant, local:true, method: :patch do |f| %>
+        <table class="table table-borderless">
+          <thead class="thead-dark">
+            <tr>
+              <th><%= f.label :reason, "削除理由"%></th>
+              <td>
+                <%= f.text_field :reason %>
                 <%= f.hidden_field :is_deleted, value:true %>
-                <%= f.submit "送信", class: "btn btn-danger" %></td>
-          </tr>
-          <% end %>
-        </thead>
-      </table>
+                <%= f.submit "送信", class: "btn btn-danger" %>
+              </td>
+            </tr>
+          </thead>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>
