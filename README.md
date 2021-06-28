@@ -1,4 +1,4 @@
-# <レストランサーチャー（仮)>
+# <レストランサーチャー>
 
 ## サイト概要
 ご飯に行こうってなった時にみんななんでもいいと中々お店が決まらないことがあると思います。
@@ -21,9 +21,6 @@
 ### 主な利用シーン
 外食前後
 
-## 設計書
-現在製作中
-
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/198dY99AhmZOk3_95gXTv13VfWvQApOLT-qree7LwKWk/edit?usp=sharing
 
@@ -33,6 +30,3 @@ https://docs.google.com/spreadsheets/d/198dY99AhmZOk3_95gXTv13VfWvQApOLT-qree7Lw
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
 - IDE：Cloud9
-
-## 使用素材
-- 現状なし（最終的に使わなそうな場合は使用素材項目削除）
