@@ -1,4 +1,6 @@
 class Public::RestaurantsController < ApplicationController
+  before_action :authenticate_customer!
+
   def new
     @restaurant = Restaurant.new
   end

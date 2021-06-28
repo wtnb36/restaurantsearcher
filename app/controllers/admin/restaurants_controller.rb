@@ -1,4 +1,6 @@
 class Admin::RestaurantsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @restaurants = Restaurant.all
   end
@@ -14,7 +16,7 @@ class Admin::RestaurantsController < ApplicationController
     @restaurant.update(is_deleted: false, reason: "")
     redirect_to admin_restaurant_path(@restaurant)
   end
-  
+
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy

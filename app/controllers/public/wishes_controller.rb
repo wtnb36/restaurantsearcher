@@ -1,4 +1,6 @@
 class Public::WishesController < ApplicationController
+  before_action :authenticate_customer!
+
   def create
     restaurant = Restaurant.find(params[:restaurant_id])
     wish = current_customer.wishes.new(restaurant_id: restaurant.id)

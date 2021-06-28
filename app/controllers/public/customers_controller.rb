@@ -1,12 +1,14 @@
 class Public::CustomersController < ApplicationController
+  before_action :authenticate_customer!
+
   def index
     @customers = Customer.all.page(params[:page]).per(10)
   end
 
   def show
     @customer = Customer.find(params[:id])
-    @favorite_restaurants = @customer.favorite_restaurants.page(params[:favorite_page]).per(1)
-    @wish_restaurants = @customer.wish_restaurants.page(params[:wish_page]).per(1)
+    @favorite_restaurants = @customer.favorite_restaurants.page(params[:favorite_page]).per(5)
+    @wish_restaurants = @customer.wish_restaurants.page(params[:wish_page]).per(5)
     #お気に入りの中からランダムで1件表示 mySQLではRANDへ変更
     @random_favorite = @customer.favorite_restaurants.order("RANDOM()").limit(1)
     @random_wish = @customer.wish_restaurants.order("RANDOM()").limit(1)

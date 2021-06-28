@@ -10,7 +10,7 @@
           <li class="nav-item"><%= link_to 'マイページ', customer_path(current_customer), data: {"turbolinks"=>false} %></li>
           <li class="nav-item"><%= link_to '会員一覧', customers_path %></li>
           <li class="nav-item"><%= link_to '店舗一覧', restaurants_path %></li>
-          <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %></li>
         <% else %>
           <li class="nav-item"><%= link_to 'Home', root_path %></li>
           <li class="nav-item"><%= link_to 'About', about_path %></li>

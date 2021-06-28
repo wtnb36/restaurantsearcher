@@ -1,4 +1,6 @@
 class Public::ReviewsController < ApplicationController
+  before_action :authenticate_customer!
+
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new(review_params)

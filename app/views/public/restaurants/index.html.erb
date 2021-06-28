@@ -28,22 +28,22 @@
                 <%= link_to restaurant_favorites_path(restaurant), method: :delete do %>
                   <i class="fas fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
                 <% end %>
-            <% else %>
+              <% else %>
                 <%= link_to restaurant_favorites_path(restaurant), method: :post do %>
                   <i class="far fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
                 <% end %>
-            <% end %>
+              <% end %>
             </td>
             <td>
-            <% if restaurant.wished_by?(current_customer) %>
-              <%= link_to restaurant_wishes_path(restaurant), method: :delete do %>
-                <i class="far fa-check-square"></i><%= restaurant.wishes.count %>
+              <% if restaurant.wished_by?(current_customer) %>
+                <%= link_to restaurant_wishes_path(restaurant), method: :delete do %>
+                  <i class="far fa-check-square"></i><%= restaurant.wishes.count %>
+                <% end %>
+              <% else %>
+                <%= link_to restaurant_wishes_path(restaurant), method: :post do %>
+                  <i class="far fa-square"></i><%= restaurant.wishes.count %>
+                <% end %>
               <% end %>
-            <% else %>
-              <%= link_to restaurant_wishes_path(restaurant), method: :post do %>
-                <i class="far fa-square"></i><%= restaurant.wishes.count %>
-              <% end %>
-            <% end %>
             </td>
             <td>
               <div class="star-score-show">

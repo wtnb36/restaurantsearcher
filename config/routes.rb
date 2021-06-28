@@ -1,19 +1,13 @@
 Rails.application.routes.draw do
   get 'search' => 'searchs#search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  devise_for :admins, controllers: {
-  sessions:      'admins/sessions',
-  passwords:     'admins/passwords',
-  registrations: 'admins/registrations'
-}
 
-  #デプロイ時はこっちのルーテイングへ
-  #devise_for :admins, skip: :all
-  #devise_scope :admin do
-  #get 'admins/sign_in' => 'admins/sessions#new', as: :new_admin_session
-  #post 'admins/sign_in' => 'admins/sessions#create', as: :admin_session
-  #delete 'logout' => 'admins/sessions#destroy', as: :destroy_admin_session
-  #end
+  devise_for :admins, skip: :all
+  devise_scope :admin do
+  get 'admins/sign_in' => 'admins/sessions#new', as: :new_admin_session
+  post 'admins/sign_in' => 'admins/sessions#create', as: :admin_session
+  delete 'logout' => 'admins/sessions#destroy', as: :destroy_admin_session
+  end
 
   namespace :admin do
     resources :customers, only: [:index, :show, :update, :destroy]
