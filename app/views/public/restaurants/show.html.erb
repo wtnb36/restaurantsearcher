@@ -60,22 +60,24 @@
               <% end %>
             </td>
           </tr>
-          <tr>
-            <th></th>
-            <td>
-              <%= form_with model: @history, local: true do |f| %>
-              <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
-              <%= f.label :date, "日付" %>
-              <%= f.date_select(
-              :date,
-              use_month_numbers: true,
-              start_year: (Time.now.year),
-              end_year: (Time.now.year+1),
-              date_separator: " / ") %>  に
-              <%= f.submit "ここに行く", class: "btn btn-success" %>
-              <% end %>
-            </td>
-          </tr>
+          <% unless @restaurant.is_deleted == true %>
+            <tr>
+              <th></th>
+              <td>
+                <%= form_with model: @history, local: true do |f| %>
+                <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
+                <%= f.label :date, "日付" %>
+                <%= f.date_select(
+                :date,
+                use_month_numbers: true,
+                start_year: (Time.now.year),
+                end_year: (Time.now.year+1),
+                date_separator: " / ") %>  に
+                <%= f.submit "ここに行く", class: "btn btn-success" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         </thead>
       </table>
     </div>

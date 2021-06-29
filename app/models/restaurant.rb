@@ -11,7 +11,11 @@ class Restaurant < ApplicationRecord
   validates :name, uniqueness: { scope: %i[address_street phone_number] }
 
   def full_address
-    '〒' + postcode.to_s + ' ' + prefecture_name + address_city + address_street + address_building
+    '〒' + postcode.to_s.insert(3, "-") + ' ' + prefecture_name + address_city + address_street + address_building
+  end
+
+  def address_name
+    prefecture_name + address_city + address_street
   end
 
   # reviewsscore平均値

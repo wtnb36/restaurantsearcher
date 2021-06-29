@@ -35,6 +35,6 @@ Rails.application.routes.draw do
       resource :favorites, only: %i[create destroy]
       resource :wishes, only: %i[create destroy]
     end
-    resources :histories, only: [:index]
+    resources :histories, only: [:index, :create, :destroy]
   end
 end

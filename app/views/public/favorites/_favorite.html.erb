@@ -1,9 +1,9 @@
 <% if restaurant.favorited_by?(current_customer) %>
   <%= link_to restaurant_favorites_path(restaurant.id), method: :delete, remote: true do %>
-    <i class="fas fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>登録解除
+    <i class="fas fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
   <% end %>
 <% else %>
   <%= link_to restaurant_favorites_path(restaurant.id), method: :post, remote: true do %>
-    <i class="far fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>登録
+    <i class="far fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
   <% end %>
 <% end %>

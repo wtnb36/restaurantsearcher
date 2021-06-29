@@ -22,7 +22,7 @@
               </td>
             </tr>
             <tr>
-              <th><%= f.label :postcode, "郵便番号(ハイフンなし)" %></th>
+              <th><%= f.label :postcode, "郵便番号" %></th>
               <td>
                 <%= f.text_field :postcode, autocomplete: "postcode", class: "form-control" %>
                 <% if @restaurant.errors.include?(:postcode) %>
@@ -78,7 +78,7 @@
               <td><%= f.text_field :address_building, autocomplete: "address_building", class: "form-control" %></td>
             </tr>
             <tr>
-              <th><%= f.label :phone_number, "電話番号(ハイフンなし)" %></th>
+              <th><%= f.label :phone_number, "電話番号" %></th>
               <td>
                 <%= f.text_field :phone_number, autocomplete: "phone_number", class: "form-control" %>
                 <% if @restaurant.errors.include?(:phone_number) %>
@@ -95,7 +95,7 @@
               <td><%= f.text_field :business_hours, class: "form-control" %></td>
             </tr>
             <tr>
-              <th><%= f.label :holiday, "休業日" %></th>
+              <th><%= f.label :holiday, "定休日" %></th>
               <td><%= f.text_field :holiday, class: "form-control" %></td>
             </tr>
             <tr>

@@ -21,8 +21,20 @@
         <tbody>
           <% @restaurants.each do |restaurant| %>
           <tr>
-            <td><%= link_to restaurant.name, restaurant_path(restaurant.id), data: {"turbolinks"=>false} %></td>
-            <td><%= restaurant.full_address %></td>
+            <% if restaurant.is_deleted == false %>
+              <td><%= link_to restaurant.name, restaurant_path(restaurant.id), data: {"turbolinks"=>false} %></td>
+            <% else %>
+              <td>
+                <%= link_to restaurant_path(restaurant.id), data: {"turbolinks"=>false} do %>
+                  <i class="far fa-window-close", style="color:red;"><%= restaurant.name %></i>
+                <% end %>
+              </td>
+            <% end %>
+            <td>
+              <%= "〒" + restaurant.postcode.to_s.insert(3, "-") %></br>
+              <%= restaurant.address_name %></br>
+              <%= restaurant.address_building %>
+            </td>
             <td class="favorite_restaurant_<%= restaurant.id %>">
               <%= render "public/favorites/favorite", restaurant: restaurant %>
             </td>

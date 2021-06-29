@@ -1,9 +1,9 @@
 <% if restaurant.wished_by?(current_customer) %>
   <%= link_to restaurant_wishes_path(restaurant.id), method: :delete, remote: true do %>
-    <i class="far fa-check-square"></i><%= restaurant.wishes.count %>登録解除
+    <i class="far fa-check-square"></i><%= restaurant.wishes.count %>
   <% end %>
 <% else %>
   <%= link_to restaurant_wishes_path(restaurant.id), method: :post, remote: true do %>
-    <i class="far fa-square"></i><%= restaurant.wishes.count %>登録
+    <i class="far fa-square"></i><%= restaurant.wishes.count %>
   <% end %>
 <% end %>

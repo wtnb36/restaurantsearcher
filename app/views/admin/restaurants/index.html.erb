@@ -18,7 +18,7 @@
               <td><%= restaurant.full_address %></td>
               <td><%= restaurant.phone_number %>
               <% if restaurant.is_deleted == true %>
-                <td>無効</td>
+                <td style="color:red;">無効</td>
               <% else %>
                 <td>有効</td>
               <% end %>
