@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-12">
       <h1>会員一覧</h1>
-      <table class="table">
+      <table class="table text-center">
         <thead class="thead-dark">
           <tr>
-            <th>ユーザー名</th>
+            <th class="text-left">ユーザー名</th>
             <th>お気に入り数  <i class="fas fa-star"></i></th>
             <th>行きたいお店の数  <i class="fa fa-check-square"></i></th>
             <th>レビュー数</th>
@@ -14,7 +14,7 @@
         <tbody>
           <% @customers.each do |customer| %>
           <tr>
-            <td><%= link_to customer.nickname, customer_path(customer) %> </td>
+            <td class="text-left"><%= link_to customer.nickname, customer_path(customer) %> </td>
             <td><%= customer.favorites.count %></td>
             <td><%= customer.wishes.count %></td>
             <td><%= customer.reviews.count %></td>

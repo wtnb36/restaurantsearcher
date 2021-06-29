@@ -5,27 +5,34 @@
       <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th>店名</th>
+            <th class="col col-sm-3  align-middle">店名</th>
             <td><%= @restaurant.name %>
               <% if @restaurant.is_deleted == true %>
                 <i class="far fa-window-close", style="color:red;"> 現在営業しておりません <%= @restaurant.reason %></i>
               <% end %>
             </td>
           </tr>
-          <tr><th>住所</th><td><%= @restaurant.full_address %></td></tr>
-          <tr><th>電話番号</th><td><%= @restaurant.phone_number %></td></tr><%# 電話番号が見にくいので表示方法検討 %>
-          <tr><th>営業時間</th><td><%= @restaurant.business_hours %></td></tr>
-          <tr><th>定休日</th><td><%= @restaurant.holiday %></td></tr>
-          <tr><th>喫煙・禁煙</th><td><%= @restaurant.tobacco %></td></tr>
-          <tr><th>紹介文</th><td><%= @restaurant.introduction %></td></tr>
           <tr>
-            <th>お気に入り</th>
+            <th class="align-middle">住所</th>
+            <td>
+              <%= "〒" + @restaurant.postcode.to_s.insert(3, "-") %></br>
+              <%= @restaurant.address_name %></br>
+              <%= @restaurant.address_building %>
+            </td>
+          </tr>
+          <tr><th class="align-middle">電話番号</th><td><%= @restaurant.phone_number %></td></tr><%# 電話番号が見にくいので表示方法検討 %>
+          <tr><th class="align-middle">営業時間</th><td><%= @restaurant.business_hours %></td></tr>
+          <tr><th class="align-middle">定休日</th><td><%= @restaurant.holiday %></td></tr>
+          <tr><th class="align-middle">喫煙・禁煙</th><td><%= @restaurant.tobacco %></td></tr>
+          <tr><th class="align-middle">紹介文</th><td><%= @restaurant.introduction %></td></tr>
+          <tr>
+            <th class="align-middle">お気に入り</th>
             <td class="favorite_restaurant_<%= @restaurant.id %>">
               <%= render "public/favorites/favorite", restaurant: @restaurant %>
             </td>
           </tr>
           <tr>
-            <th>行ってみたい</th>
+            <th class="align-middle">行ってみたい</th>
             <td class="wish_restaurant_<%= @restaurant.id %>">
               <%= render "public/wishes/wish", restaurant: @restaurant %>
             </td>

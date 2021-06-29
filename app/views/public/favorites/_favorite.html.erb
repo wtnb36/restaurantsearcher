@@ -1,3 +1,4 @@
+
 <% if restaurant.favorited_by?(current_customer) %>
   <%= link_to restaurant_favorites_path(restaurant.id), method: :delete, remote: true do %>
     <i class="fas fa-star", style="color:gold;"></i><%= restaurant.favorites.count %>
