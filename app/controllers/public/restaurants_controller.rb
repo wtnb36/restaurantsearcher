@@ -8,6 +8,15 @@ class Public::RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.save
+      @restaurant.portraits.each do |portrait|
+        tag_names = Vision.get_image_data(portrait.blob.key)
+        tag_names.each do |tag_name|
+          tag = Tag.find_by(restaurant_id: @restaurant, name: tag_name)
+          if tag.blank?
+            @restaurant.tags.create(name: tag_name)
+          end
+        end
+      end
       redirect_to restaurants_path
     else
       render :new
@@ -33,7 +42,23 @@ class Public::RestaurantsController < ApplicationController
 
   def update
     @restaurant = Restaurant.find(params[:id])
+    if params[:restaurant][:portrait_ids]
+      params[:restaurant][:portrait_ids].each do |portrait_id|
+        portrait = @restaurant.portraits.find(portrait_id)
+        portrait.purge
+      end
+    end
     if @restaurant.update(restaurant_params)
+      @restaurant.tags.delete_all
+      @restaurant.portraits.each do |portrait|
+        tag_names = Vision.get_image_data(portrait.blob.key)
+        tag_names.each do |tag_name|
+          tag = Tag.find_by(restaurant_id: @restaurant, name: tag_name)
+          if tag.blank?
+            @restaurant.tags.create(name: tag_name)
+          end
+        end
+      end
       redirect_to restaurant_path(@restaurant)
     else
       render :edit
@@ -57,7 +82,7 @@ class Public::RestaurantsController < ApplicationController
       :name, :postcode, :prefecture_code, :address_city,
       :address_street, :address_building, :phone_number,
       :business_hours, :holiday, :reason, :is_deleted,
-      :tobacco, :introduction, :image
+      :tobacco, :introduction, :image, portraits: []
     )
   end
 

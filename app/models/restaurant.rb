@@ -3,12 +3,13 @@ class Restaurant < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :wishes, dependent: :destroy
   has_many :histories, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
-  validates :name, :postcode, :prefecture_code, :address_city,
-            :address_street, :phone_number, presence: true
+  #validates :name, :postcode, :prefecture_code, :address_city,
+            #:address_street, :phone_number, presence: true
 
   # 店名、市区町村以降の住所,電話番号が同一のものは作れない
-  validates :name, uniqueness: { scope: %i[address_street phone_number] }
+  #validates :name, uniqueness: { scope: %i[address_street phone_number] }
 
   def full_address
     '〒' + postcode.to_s.insert(3, "-") + ' ' + prefecture_name + address_city + address_street + address_building
@@ -47,6 +48,7 @@ class Restaurant < ApplicationRecord
   enum tobacco: { 喫煙可: 0, 禁煙: 1, 不明: 2 }
 
   attachment :image
+  has_many_attached :portraits
 
   def self.looks(searches, words)
     @restaurant = if searches == 'perfect_match'

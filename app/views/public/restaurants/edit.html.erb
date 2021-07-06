@@ -115,9 +115,29 @@
         <td><%= f.text_area :introduction, class: "form-control" %></td>
       </tr>
       <tr>
-        <th><%= f.label :image, "画像" %></th>
-        <td><%= f.attachment_field :image %></td>
+        <th><%= f.label :portrait, "画像" %></th>
+        <td><%= f.file_field :portraits, multiple: true %></td>
       </tr>
+      <% if @restaurant.portraits.present? %>
+        <tr>
+          <th></th>
+          <td>
+            <div class="container">
+              <div><p>現在登録されている画像（削除するものにチェックを入れてください）</p></div>
+              <div class="row">
+                <% @restaurant.portraits.each do |portrait| %>
+                <div class="delete_portraits">
+                  <%= image_tag portrait, size:"100x100" %>
+                  <div>
+                    <%= f.check_box :portrait_ids, {multiple: true}, portrait.id, false %>削除する
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
     </thrad>
     <thead>
       <tr>

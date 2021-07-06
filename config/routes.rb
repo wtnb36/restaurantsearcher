@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   scope module: 'public' do
     get 'customers/unsubscribe', to: 'customers#unsubscribe', as: 'unsubscribe'
     patch 'customers/withdrawal', to: 'customers#withdrawal', as: 'withdrawal'
-    # resources :maps, only: [:index] 未実装
+    #resources :maps, only: [:index]
     resources :customers, only: %i[index show edit update]
     resources :restaurants do
       get 'deletion_request', to: 'restaurants#deletion_request', as: 'deletion_request'
