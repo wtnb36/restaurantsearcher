@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col col-sm-6">
+    <div class="col col-sm-8">
       <h1>店舗詳細</h1>
       <table class="table">
         <thead class="thead-dark">
@@ -88,12 +88,22 @@
         </thead>
       </table>
     </div>
-    <div class="col-sm-3">
-      <%= attachment_image_tag @restaurant, :image, format: 'jpeg', size: "200x200", class: "img-responsive" %>
-    </div>
     <%= render 'public/reviews/form', review: @review, restaurant: @restaurant, my_review: @my_review, review_index: @review_index %>
   </div>
-  <div class="row">
-
-  </div>
+  <div class="container">
+    <div class="row">
+        <%#= attachment_image_tag @restaurant, :image, format: 'jpeg', size: "200x200", class: "img-responsive" %>
+        <div class="col col-sm-12">
+          <% if @restaurant.portraits.attached? %>
+            <% @restaurant.portraits.each do |portrait| %>
+              <%= image_tag portrait, size: "200x200" %>
+            <% end %>
+          <% end %>
+          <div class="delete_portraits">
+            <% @restaurant.tags.each do |tag| %>
+              <span class="label"><%= tag.name %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
 </div>

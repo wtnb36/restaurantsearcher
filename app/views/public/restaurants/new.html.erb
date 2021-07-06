@@ -113,9 +113,8 @@
               <th><%= f.label :introduction, "紹介文" %></th>
               <td><%= f.text_area :introduction, class: "form-control" %></td>
             </tr>
-            <tr>
-              <th><%= f.label :image, "画像" %></th>
-              <td><%= f.attachment_field :image %></td>
+              <th><%= f.label :portrait, "画像" %></th>
+              <td><%= f.file_field :portraits, multiple: true %></td>
             </tr>
             <tr>
               <th></th>
